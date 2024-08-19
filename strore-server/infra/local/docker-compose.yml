@@ -1,0 +1,50 @@
+services:
+
+  db:
+    image: postgres:16-alpine
+    restart: always
+    volumes:
+      - store_postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+
+  redis:
+    image: redis:7.2-alpine
+    restart: always
+
+  web:
+    build: ../..
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - store_static_value:/app/static
+    env_file:
+      - ./.env
+
+  # celery:
+  #   image: celery:3
+  #   restart: always
+  #   env_file:
+  #     -  ./.env
+  #   depends_on:
+  #     - redis
+  #     - web
+  #   volumes:
+  #     - ./celery.conf:/etc/systemd/system/celery.service
+
+  nginx:
+    image: nginx:1.21.3-alpine
+    restart: always
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - store_static_value:/var/html/static/
+
+volumes:
+  store_postgres_data:
+  store_static_value:
