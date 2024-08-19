@@ -1,0 +1,8 @@
+<ul>
+    {% for category in categories %}
+        {% if category.url %}<li><a href='{{ category.url }}'>{{ category.name }}</li>
+        {% elif category.name %}<li><a href='{{ category.name }}'>{{ category.name }}</li>
+        {% else %}{% include 'tree_menu/menu.html' with categories=category %}
+        {% endif %}
+    {% endfor %}
+</ul>

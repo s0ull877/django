@@ -1,0 +1,189 @@
+[
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 1,
+        "fields": {
+            "name": "Комплектующие для ПК",
+            "description": "",
+            "url": "",
+            "parent": null,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 2,
+        "fields": {
+            "name": "Основные комплектующие",
+            "description": "",
+            "url": "",
+            "parent": 1,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 3,
+        "fields": {
+            "name": "Модификации",
+            "description": "",
+            "url": "",
+            "parent": 1,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 4,
+        "fields": {
+            "name": "Процессоры",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/17a899cd16404e77/processory/",
+            "parent": 2,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 5,
+        "fields": {
+            "name": "Материнские платы",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/17a89a0416404e77/materinskie",
+            "parent": 2,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 6,
+        "fields": {
+            "name": "Видеокарты",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/17a89aab16404e77/videokarty/",
+            "parent": 2,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 7,
+        "fields": {
+            "name": "Системы подсветки",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/b37626c35ecf3604/sistemy-pod",
+            "parent": 3,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 8,
+        "fields": {
+            "name": "Контроллеры подстветки",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/519a8e40b53be1b3/kontrollery",
+            "parent": 3,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 9,
+        "fields": {
+            "name": "Бытовая техника",
+            "description": "",
+            "url": "",
+            "parent": null,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 10,
+        "fields": {
+            "name": "Для дома",
+            "description": "",
+            "url": "",
+            "parent": 9,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 11,
+        "fields": {
+            "name": "Для кухни",
+            "description": "",
+            "url": "",
+            "parent": 9,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 12,
+        "fields": {
+            "name": "Плиты и печи",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/89873d5539157fd7/plity-i-pec",
+            "parent": 11,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 13,
+        "fields": {
+            "name": "Холодильники",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/093d2768390b7fd7/xolodilnoe-",
+            "parent": 11,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 14,
+        "fields": {
+            "name": "Грили",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/d7bc35044aab7fd7/grili-sendv",
+            "parent": 11,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 15,
+        "fields": {
+            "name": "Уборка",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/3275c8503bd17fd7/uborka/",
+            "parent": 10,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 16,
+        "fields": {
+            "name": "Стирка и сушка",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/17a8e9ed16404e77/stirka-i-su",
+            "parent": 10,
+            "category": 1
+        }
+    },
+    {
+        "model": "tree_menu.subcategory",
+        "pk": 17,
+        "fields": {
+            "name": "Умный дом",
+            "description": "",
+            "url": "https://www.dns-shop.ru/catalog/17aa343116404e77/umnyj-dom/",
+            "parent": 10,
+            "category": 1
+        }
+    }
+]

@@ -1,0 +1,12 @@
+{% load custom_tag %}
+
+{% if categories %}
+    <ul>
+        {% for category in categories%}
+            <li><a href='{{ category }}'>{{ category.name }}</li>
+        {% endfor %}
+    </ul>    
+{% elif category_name %}
+    <h3><a href={% url 'main_menu' %}>В главное меню</h3>
+    {% draw_menu category_name subcategory_name %}
+{% endif %}

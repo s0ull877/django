@@ -1,0 +1,35 @@
+services:
+
+  db:
+    image: postgres:16-alpine
+    restart: always
+    volumes:
+      - tree_menu_postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+
+  web:
+    build: ../..
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - tree_menu_static_value:/app/static/
+    env_file:
+      - ./.env
+
+  nginx:
+    image: nginx:1.21.3-alpine
+    restart: always
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - tree_menu_static_value:/var/html/static
+
+volumes:
+  tree_menu_postgres_data:
+  tree_menu_static_value:
