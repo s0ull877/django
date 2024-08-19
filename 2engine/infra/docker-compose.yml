@@ -1,0 +1,72 @@
+services:
+
+  db:
+    image: postgres:16-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  elasticsearch:
+    image: elasticsearch:8.8.0
+    ports:
+      - 9200:9200
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+
+
+  rabbitmq:
+    image: rabbitmq:3
+    restart: always
+    env_file:
+      - ../.env
+
+  web:
+    build: 
+      context: ../app
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - elasticsearch
+      - rabbitmq
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - 2engine_static_data:/static
+    env_file:
+      - ../.env
+
+  nginx:
+    image: nginx:1.21.3-alpine
+    restart: always
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - 2engine_static_data:/var/html/static/
+
+  celery:
+    build: ../app
+    command: /bin/sh -c "celery -A app worker -l INFO & celery -A app flower --port=5555"
+    restart: always
+    ports:
+      - "5555:5555"
+    depends_on:
+      - rabbitmq
+      - web
+    env_file:
+      - ../.env
+
+
+volumes:
+  postgres_data:
+  2engine_static_data:

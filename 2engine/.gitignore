@@ -1,0 +1,10 @@
+**/__pycache__
+**/venv
+
+**/.env
+**/db.sqlite3
+
+**/.vscode
+/app/static
+
+.gitmodules

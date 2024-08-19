@@ -1,0 +1,90 @@
+{% load static %}
+
+{% load query_transform  %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'deps/css/reset.css' %}" rel="stylesheet" >
+    <link rel="stylesheet" href="{% static 'deps/css/styles.css' %}">
+    <title>Tasks List</title>
+</head>
+<header>
+    <h1>Тasks Table</h1>
+</header>
+<body>
+    <div class="searcher">
+        <form action="{% url 'tasks:list' %}" method="get">
+            <label>
+                <input type="search" name="q" placeholder="Поиск"></input>
+            </label>
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
+    <div class="table">
+        <div class="table-head">
+            <ul class="column-name-list">
+                <li>ID</li>
+                <li>NAME</li>
+                <li>DESCRIPTION</li>
+                <li>STATUS</li>
+            </ul>
+        </div>
+        <div>
+            {% for task in task_list %}
+                <div class="table-row">
+                    <ul class="task-data-list">
+                        <li>{{ task.id }}</li>
+                        <li>{{ task.name }}</li>
+                        <li>{{ task.description }}</li>
+                        <li>{{ task.get_status_display }}</li>
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+        {% if request.GET.q %}
+        <div>
+            <a href="{% url 'tasks:list' %}">Показать все задачи</a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if is_paginated %}
+        <nav class="paginator">
+            <ul class="page-list">
+                <li>
+                    <a class="{% if not page_obj.has_previous %} disabled {% endif %}" 
+                        href="{% if page_obj.has_previous %} ?{% query_transform page=page_obj.previous_page_number %} {% else %} {% endif %}">
+                        <img src="{% static 'deps/img/left.svg'%}" alt="arrow-back">
+                    </a>
+                </li> 
+
+                {% if page_obj.number|add:'-2' > 0 %}
+                    <li><a href="?{% query_transform page=page_obj.number|add:'-2' %}">{{ page_obj.number|add:'-2' }}</a></li>
+                {% endif %}
+                {% if page_obj.has_previous %}
+                    <li><a href="?{% query_transform page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a></li>
+                {% endif %}
+                <li><a class="disabled" href="">{{ page_obj.number }}</a></li>
+                {% if page_obj.has_next %}
+                    <li><a href="?{% query_transform page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a></li>
+                {% endif %}
+                {% if page_obj.number|add:'2' <= page_obj.paginator.num_pages %}
+                    <li><a href="?{% query_transform page=page_obj.number|add:'2' %}">{{ page_obj.number|add:'2' }}</a></li>
+                {% endif %}
+
+                <li>
+                    <a class="{% if not page_obj.has_next %} disabled {% endif %}" 
+                    href="{% if page_obj.has_next %} ?{% query_transform page=page_obj.next_page_number %} {% else %} {% endif %}">
+                    <img src="{% static 'deps/img/right.svg'%}" alt="arrow-forward">
+                </a>
+                </li> 
+            </ul>
+        </nav>
+    {% endif %}
+
+</body>
+</html>
