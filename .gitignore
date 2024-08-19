@@ -1,6 +1,7 @@
 **/*venv*
 
 *.pyc
+*.session
 
 **/__pycache__/
 
