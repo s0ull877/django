@@ -1,0 +1,54 @@
+
+{% load orders_tags %}
+
+{% user_orders request as orders %}
+
+<div class="col-md-12">
+    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+        <h3 class="text-center mb-4">{% if orders %}Мои заказы{% else %}Ваши заказы будут находиться здесь{% endif %}</h3>
+
+        <div class="container">
+            <div class="accordion" id="accordionExample">
+                {% for order in orders %}  
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ order.id }}">
+                            <button class="accordion-button {% if not order == orders.0 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" aria-expanded="false" aria-controls="collapse{{ order.id }}">
+                                Заказ № {{ order.id }} - {{ order.created }} | Статус:<strong class="mx-2"> {{ order.get_status_display  }}</strong> | {% if order.is_paid %}Оплачен{% else %}Ожидает оплаты{% endif %}
+                            </button>
+                        </h2>
+                        <div id="collapse{{ order.id }}" class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %}" aria-labelledby="heading{{ order.id }}" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table class="table table-dark table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Товар</th>
+                                            <th>Количество</th>
+                                            <th>Цена</th>
+                                            <th>Общая стоимость</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for orderItem in order.orderitem_set.all %}
+                                            <tr>
+                                                <td><a class="text-white" href="{% url "goods:product" orderItem.product.id %}">{{orderItem.name}}</a></td>
+                                                <td>{{orderItem.quantity}}</td>
+                                                <td>{{orderItem.price}} $</td>
+                                                <td>{{orderItem.product_price}} $</td>
+                                        {% endfor %}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                <div class="d-flex justify-content-between">
+                                    <p><strong>Итого:</strong></p>
+                                    <p><strong>{{orderItems.total_price}} $</strong></p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}  
+            </div>
+        </div>
+
+    </div>
+</div>

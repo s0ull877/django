@@ -1,0 +1,150 @@
+{% load static %}
+
+{% load categories_tag %}
+{% load carts_tags %}
+
+{% user_carts request as carts %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'deps/css/bootstrap/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'deps/css/my_css.css'%}">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'deps/favicon/apple-touch-icon.png'%}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'deps/favicon/favicon-32x32.png'%}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'deps/favicon/favicon-16x16.png'%}">
+    <link rel="manifest" href="{% static 'deps/favicon/site.webmanifest'%}">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url "main:index" %}">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Информация
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item  text-white" href="#">Доставка и оплата</a></li>
+                                <li><a class="dropdown-item  text-white" href="#">Контактная информация</a></li>
+                                <li><a class="dropdown-item  text-white" href="{% url "main:about" %}">Про нас</a></li>
+                            </ul>
+                        </li>
+
+                        {% if not user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link  text-white" href="{% url 'users:login' %}">Войти</a>
+                        </li>
+                        {% else %}
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Мой профиль
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item  text-white" href="{% url "users:user_cart" %}">Корзина</a></li>
+                                    <li><a class="dropdown-item  text-white" href={% url 'users:profile' user.id %}>Личный кабинет</a>
+                                    </li>
+                                    {% if user.is_staff %}
+                                    <li><a class="dropdown-item  text-white" href="{% url "admin:index" %}">Админ панель</a></li>
+                                    <li>
+                                    {% endif %}
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item  text-white" href="{% url 'users:logout' %}">Выйти</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <form class="d-flex" role="search" action="{% url "goods:search" %}" method="get">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success text-white" type="submit">Поиск</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section>
+        <div class="container">
+            <!-- Каталог и корзина с фиксированным расположением на странице -->
+            <div class="row mt-1 position-fixed z-3">
+                <!-- Каталог -->
+                <div class="dropdown mb-2">
+                    <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Каталог
+                        <img class="mx-1" src="{% static 'deps/icons/grid-fill.svg'%}" alt="Catalog Icon" width="16"
+                            height="16">
+                    </button>
+                    <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
+                        {% categories_tag as categories %}
+                        {% for category in categories %}
+                            <li><a class="dropdown-item text-white" href="{% url "goods:catalog" category.slug %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% block basket %}
+                    <div>
+                        <button type="button" class="btn btn-dark btn-secondary d-flex" id="modalButton"
+                            aria-expanded="false">
+                            <img class="mx-1" src="{% static 'deps/icons/basket2-fill.svg'%}" alt="Catalog Icon" width="24"
+                                height="24">
+                            <span id="goods-in-cart-count">{{ carts.total_quantity }}</span>
+                        </button>
+                    </div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="text-center mb-4">Корзина</h3>
+                                    {% include "carts/includes/included_cart.html" %}
+                                    <a class="btn btn-dark" href="{% url "orders:create" %}">
+                                        Оформить заказ
+                                    </a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock basket %}
+            </div>
+        </div>
+        <div class="container">
+            <div class="row mt-1">
+                    <div class="col-lg-2">
+                    </div> 
+                <div class="col-lg-10">
+                    {% include "includes/notifications.html" %}
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'deps/js/jquery/jquery-3.7.0.min.js'%}"></script>
+    <script src="{% static 'deps/js/jquery-ajax.js'%}"></script>
+    <script src="{% static 'deps/js/bootstrap/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

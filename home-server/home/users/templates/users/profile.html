@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block basket %}{% endblock basket %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="container mt-5">
+            <div class="row">
+                <!-- Профиль с данными пользователя -->
+                <div class="col-md-5">
+                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                        <h3 class="text-center mb-4">Ваш профиль</h3>
+                        <form action="{% url "users:profile" user.id %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12 mb-3 text-center">
+                                    <img src="{% if user.image %}{{ user.image.url }}{% else %}{% static '/deps/images/baseavatar.jpg' %}{% endif %}"
+                                        alt="Аватар пользователя" class="img-fluid rounded-circle" style="max-width: 150px;">
+                                        <input type="file" class="form-control mt-3" name="image" id="id_image"
+                                        accept="image/*">
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_first_name" class="form-label">Имя*</label>
+                                    <input type="text" class="form-control" name='first_name' id="id_first_name"
+                                    placeholder="Введите ваше имя" value="{% if user.first_name %}{{ user.first_name }}{% endif %}">
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_last_name" class="form-label">Фамилия*</label>
+                                    <input type="text" class="form-control" name="last_name" id="id_last_name"
+                                    placeholder="Введите вашу фамилию" value="{% if user.last_name %}{{ user.last_name }}{% endif %}">
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_username" class="form-label">Имя пользователя*</label>
+                                    <input type="text" class="form-control" name="username" id="id_username"
+                                    placeholder="Ваше имя пользователя" value="{{user.username}}" disabled> 
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_email" class="form-label">Email*</label>
+                                    <input type="email" class="form-control" name="email" id="id_email"
+                                    placeholder="Введите ваш email *youremail@example.com" value="{{ user.email }}" disabled>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-dark">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Корзина -->
+                <div class="col-md-7">
+                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                        <h3 class="text-center mb-4">Корзина</h3>
+                        {% include "carts\includes\included_cart.html" %}
+                        <a class="btn btn-dark" href="{% url "orders:create" %}">
+                            Оформить заказ
+                        </a> 
+                    </div>
+                </div>
+                <!-- Оформленные заказы -->
+                {% include "orders\includes\included_orders.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}

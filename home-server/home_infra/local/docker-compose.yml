@@ -1,0 +1,57 @@
+services:
+
+  db:
+    image: postgres:16-alpine
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+
+  redis:
+    image: redis:7.2-alpine
+    restart: always
+
+
+  web:
+    build: ../..
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - home_static_data:/app/static
+      - home_media_data:/app/media
+    env_file:
+      - ../../home/.env
+
+
+  celery:
+    build: ../..
+    command: /bin/sh -c "celery -A home worker -l INFO"
+    restart: always
+    depends_on:
+      - redis
+      - web
+    env_file:
+      - ../../home/.env
+
+
+  nginx:
+    image: nginx:1.21.3-alpine
+    restart: always
+    depends_on: 
+      - web
+    ports:
+      - "80:80"    
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - home_static_data:/var/html/static/
+      - home_media_data:/var/html/media/
+
+volumes:
+  postgres_data:
+  home_static_data:
+  home_media_data:

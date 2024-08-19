@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="col-lg-10">
+        <div class="container mt-5">
+            <div class="card mb-4 custom-shadow">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ object.image.url }}"
+                            class="img-thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal1">
+                    </div>
+                    <div class="col-md-4 ">
+                        <p class="product_id mt-3">id: {{ object.display_id }}</p>
+                    </div>
+                    <div class="modal fade" id="imageModal1" tabindex="-1"
+                        aria-labelledby="imageModal1Label" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="imageModal1Label">Изображение 1</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Закрыть"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ object.image.url }}"
+                                        class="img-fluid" alt="Изображение 1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Цена: <strong>{{ object.with_discount }} $</strong></p>
+                    <h5 class="card-title">{{ object.name }}</h5>
+                    <p class="card-text">{{ object.description }}</p>
+                    <a href="{% url "carts:add" %}" class="btn btn-dark add-to-cart"
+                    data-product-id={{object.id}}> {% csrf_token %}
+                    Добавить в корзину
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}   
