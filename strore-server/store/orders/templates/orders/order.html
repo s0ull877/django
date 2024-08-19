@@ -1,0 +1,41 @@
+{% extends "products/base.html" %}
+{% load humanize %}
+
+{% block content %}
+    <section>
+        <div class="container pt-5">
+            <div class="text-center mt-5">
+                {% if pass %}
+                    <h1>Заказ №{{ order.id }}</h1>
+                    <div class="orders mt-5">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Название</th>
+                                <th scope="col">Кол-во</th>
+                                <th scope="col">Цена</th>
+                                <th scope="col">Сумма</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for purchsed_item in order.basket_history.purchsed_items %}
+                                <tr>
+                                    <th scope="{{ purchsed_item.product_name }}">
+                                        {{ purchsed_item.product_name }}
+                                    </th>
+                                    <td>{{ purchsed_item.quantity }}</td>
+                                    <td>{{ purchsed_item.price| intcomma }} руб.</td>
+                                    <td>{{ purchsed_item.sum| intcomma }} руб.</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <p class="float-right h4 mt-3">Итого {{ order.price| intcomma}} руб.</p>
+                    </div>
+                {% else %}
+                    <h1>У вас нет заказа №{{ order.id }}</h1>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}
