@@ -1,0 +1,24 @@
+services:
+
+  redis:
+    image: redis:7.2-alpine
+    restart: always
+    volumes:
+      - redis_data:/data 
+
+  bot:
+    build: 
+      context: ./bot
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - sessions:/sessions
+    depends_on:
+      - redis
+    env_file:
+      - ./.env
+
+
+volumes:
+  sessions:
+  redis_data:
