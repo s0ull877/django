@@ -10,7 +10,8 @@ class UserBallance(models.Model):
     ballance=models.DecimalField(
         verbose_name='Балланс руб.',
         max_digits=7,
-        decimal_places=2
+        decimal_places=2,
+        default=0
     )
 
     class Meta:
