@@ -28,7 +28,7 @@ class UserBallance(models.Model):
 class BallanceTransaction(models.Model):
     
     user_ballance=models.ForeignKey(
-        verbose_name='Баланса Пользователя',
+        verbose_name='Баланс Пользователя',
         to=UserBallance, on_delete=models.CASCADE
         )
     
@@ -54,4 +54,3 @@ class BallanceTransaction(models.Model):
     )
 
 
-    
