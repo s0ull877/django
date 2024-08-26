@@ -23,6 +23,7 @@ class UserBallanceSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
 
+        # создание транзакции
         self.instance.ballance += self.initial_data.get('quantity')
 
         return super().save(**kwargs)
