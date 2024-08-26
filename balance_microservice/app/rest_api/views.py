@@ -7,6 +7,8 @@ from rest_framework import status, mixins, generics, response, exceptions
 
 from ballance.serializers import UserBallance, UserBallanceSerializer 
 
+from .utils import transform_quantity
+
 class CustomGenericView(generics.GenericAPIView):
 
     required_post_fields={'user_id': int}
@@ -49,6 +51,10 @@ class GetUserBallance(CustomGenericView):
         self.valid_post_data()
         instance = get_object_or_404(self.get_queryset(), user_id=request.data['user_id'])
         serializer = self.get_serializer(instance)
+
+        if request.query_params.get('currency') is not None:
+            serializer.data['quantity'] = transform_quantity(quantity=instance.ballance, currency=request.query_params['currency'])
+        
         return response.Response(serializer.data)
 
 
@@ -117,7 +123,7 @@ class SendMoneyAPIView(mixins.UpdateModelMixin, CustomGenericView):
         sender_serializer = self.get_serializer(sender, data={'quantity': request.data['quantity'] * -1}, partial=True)
         sender_serializer.is_valid(raise_exception=True)
         sender_serializer.save()
-        
+
         recipient_serializer = self.get_serializer(recipient, data={'quantity': request.data['quantity']}, partial=True)
         recipient_serializer.is_valid(raise_exception=True)
         recipient_serializer.save()
