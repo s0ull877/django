@@ -5,9 +5,11 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import status, mixins, generics, response, exceptions
 
-from ballance.serializers import UserBallance, UserBallanceSerializer 
+from ballance.serializers import UserBallance, UserBallanceSerializer, \
+                            BallanceTransaction, BallanceTransactionSerializer
 
 from .utils import transform_quantity
+
 
 class CustomGenericView(generics.GenericAPIView):
 
@@ -71,7 +73,7 @@ class EditUserBallance(mixins.UpdateModelMixin, CustomGenericView):
         try:
             instance = get_object_or_404(self.get_queryset(), user_id=request.data['user_id'])
         except Http404:
-            instance = self.get_queryset().model.objects.create(user_id=request.data['user_id'])
+            instance = self.queryset.create(user_id=request.data['user_id'])
 
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         
@@ -119,12 +121,19 @@ class SendMoneyAPIView(mixins.UpdateModelMixin, CustomGenericView):
             
             raise Http404('No recipient with user_id: {}'.format(request.data['user_id']))
 
-
-        sender_serializer = self.get_serializer(sender, data={'quantity': request.data['quantity'] * -1}, partial=True)
+        # создание отправителя
+        sender_serializer = self.get_serializer(sender, partial=True,
+                                                        data={'quantity': request.data['quantity'] * -1,
+                                                            'service': f'Перевод пользователю {recipient.user_id}'})
+        
         sender_serializer.is_valid(raise_exception=True)
         sender_serializer.save()
 
-        recipient_serializer = self.get_serializer(recipient, data={'quantity': request.data['quantity']}, partial=True)
+        # создание получателя
+        recipient_serializer = self.get_serializer(recipient, partial=True,
+                                                        data={'quantity': request.data['quantity'],
+                                                                'service': f'Пополнение от {sender.user_id}'})
+    
         recipient_serializer.is_valid(raise_exception=True)
         recipient_serializer.save()
 
@@ -137,3 +146,20 @@ class SendMoneyAPIView(mixins.UpdateModelMixin, CustomGenericView):
         self.valid_post_data()
 
         return self.update(request)
+    
+
+# получение транзакций
+# body - { 'user_id': int }
+class GetUserTransaction(CustomGenericView):
+
+    queryset=BallanceTransaction.objects.all()
+    serializer_class=BallanceTransactionSerializer
+
+
+
+    def post(self, request):
+
+        self.valid_post_data()
+        queryset = self.queryset.filter(user_ballance__user_id=request.data['user_id'])
+        serializer = self.get_serializer(queryset, many=True)
+        return response.Response(serializer.data)

@@ -4,6 +4,19 @@ from rest_framework import serializers, status, exceptions
 
 from .models import UserBallance, BallanceTransaction
 
+# TODO сделать из нее таску для селери
+def create_transaction(ballance_id: int, data: dict):
+
+    user_ballance = UserBallance.objects.get(id=ballance_id)
+
+    transaction = BallanceTransaction(
+        user_ballance=user_ballance,
+        quantity=data['quantity'],
+        service=data['service'] if data.get('service') else 'Не указано',
+        description=data['description'] if data.get('description') else 'Описание отсутсвует',
+    )
+    transaction.save()
+
 class UserBallanceSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -23,7 +36,7 @@ class UserBallanceSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
 
-        # создание транзакции
+        create_transaction(self.instance.id, self.initial_data)
         self.instance.ballance += self.initial_data.get('quantity')
 
         return super().save(**kwargs)
@@ -31,12 +44,11 @@ class UserBallanceSerializer(serializers.ModelSerializer):
 
 class BallanceTransactionSerializer(serializers.ModelSerializer):
 
-    user_ballance=serializers.PrimaryKeyRelatedField(queryset=UserBallance.objects.all())
 
     class Meta:
         
         model=BallanceTransaction
-        fields = ('user_ballance', 'quantity', 'service', 'description',)
+        fields = ('quantity', 'service', 'description', 'created_at')
         read_only_fields=('created_at',)
 
 
