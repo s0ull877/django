@@ -152,14 +152,18 @@ class SendMoneyAPIView(mixins.UpdateModelMixin, CustomGenericView):
 # body - { 'user_id': int }
 class GetUserTransaction(CustomGenericView):
 
-    queryset=BallanceTransaction.objects.all()
+    queryset=BallanceTransaction.objects.all().order_by('-created_at')
     serializer_class=BallanceTransactionSerializer
-
-
 
     def post(self, request):
 
         self.valid_post_data()
         queryset = self.queryset.filter(user_ballance__user_id=request.data['user_id'])
+        
+        if not queryset:
+            
+            raise Http404('No transactions with this user_id: {}.'.format(request.data['user_id']))
+
+
         serializer = self.get_serializer(queryset, many=True)
         return response.Response(serializer.data)
