@@ -1,0 +1,52 @@
+body {
+    background-color: rgb(16, 16, 16);
+}
+ 
+.popup {
+    background-color: rgb(36, 36, 36);
+    margin: 50px auto;
+    width: 800px;
+    border: 4mm ridge rgba(149, 2, 2, 0.753);
+
+}
+
+.inner {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.title {
+    font-size: 50px;
+    font-weight: 400;
+    color:  yellow;
+    -webkit-text-stroke: 1.2px #000000;
+    font-family: "Rubik Bubbles", system-ui;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.subtitle {
+    padding: 20px 0 10px;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: "Rubik Mono One", monospace;
+    color: rgb(136, 0, 0);
+   -webkit-text-stroke: 1px #000000;
+}
+
+.information {
+    color: rgb(140, 140, 140);
+    line-height: normal;
+}
+
+.back {
+    padding: 20px 0 0;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: "Rubik Mono One", monospace;
+    color: yellow;
+}

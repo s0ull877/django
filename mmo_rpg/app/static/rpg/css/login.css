@@ -1,0 +1,248 @@
+body {
+    background-color: rgb(16, 16, 16);
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+.custom-placeholder::placeholder{
+    font-family: "Rubik Bubbles", system-ui;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 12px;
+}
+
+.fixed-page {
+    width: 1290px;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: rgb(30, 30, 30);
+}
+
+.center {
+    padding: 0 240px;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.header-list {
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+}
+
+.header-item a {
+    padding-right: 100px;
+}
+
+.search-box {
+    background-color:rgb(16, 16, 16);
+    border-radius: 15px 15px 15px 15px;
+}
+
+.search-box-view {
+    display: flex;
+    align-items: center;
+    padding: 0 15px 0 3px;
+    height: 29px;
+}
+
+.search-box input {
+    background-color: rgb(16, 16, 16);
+}
+
+.search-box input::-ms-clear {
+    color: rgb(30, 30, 30);
+}
+
+.page-information {
+    display: flex;
+    padding-top: 10px;
+    justify-content: space-between;
+}
+
+.greeting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 478px;
+}
+
+.greeting-title {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Rubik Mono One", monospace;
+    padding: 10px 0 10px;
+    color: yellow;
+}
+
+.greeting-subtitle {
+   color: rgb(0, 221, 255);
+   -webkit-text-stroke: 1px #000000;
+   font-family: "Rubik Bubbles", system-ui;
+   font-weight: 400;
+   font-style: normal;
+   font-size: 14px;
+   text-align: center;
+}
+
+.greeting-descr {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: "Rubik Mono One", monospace;
+    line-height: 20px;
+    color: yellow;
+}
+
+.greeting img {
+    width: 80%;
+}
+
+.sign {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 225px;
+}
+
+.sign-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(30, 30, 30);
+    border-radius: 15px 15px 15px 15px;
+    margin: 0 auto;
+}
+
+.center-button {
+    display: block;
+}
+
+.sign-button {
+    background-color: rgb(216, 52, 52);
+    padding: 0 8px;
+    margin: 5px 10px;
+    border-radius: 15px 15px 15px 15px;
+    border: 0.4px solid rgb(16, 16, 16);
+}
+
+#continue {
+    background-color: yellow;
+}
+
+.continue-in {
+    color: rgb(0, 221, 255);
+}
+
+.create-account {
+    color: rgb(16, 16, 16);
+}
+
+.sign-in{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-in-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Rubik Mono One", monospace;
+    line-height: 20px;
+    color:  rgb(216, 52, 52);
+    padding: 10px 0 5px;
+    -webkit-text-stroke: 1px #000000;
+}
+
+.sign-in-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.sign-item {
+    background-color: rgb(16, 16, 16);
+    padding: 0 8px;
+    margin: 5px 10px;
+    border-radius: 15px 15px 15px 15px;
+}
+
+.sign-list input {
+    background-color: rgb(16, 16, 16);
+    padding: 2px 0;
+    color: white;
+}
+
+.sign-list span {
+    -webkit-text-stroke: 0.5px #000000;
+    font-family: "Rubik Bubbles", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 2px 0;
+    display: block;
+    text-align: center;
+}
+
+.sociallapp-sign {
+    padding: 10px 0 10px;
+    margin: 5px 0 0;
+    border-top: 2px solid rgb(16, 16, 16);
+    font-family: "Rubik Bubbles", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    padding: 10px 0 5px;
+    color: rgb(216, 52, 52);
+    -webkit-text-stroke: 1px #000000;
+
+}
+
+.sociallapp-list {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.sign-up {
+    width: 205px;
+    padding: 10px;
+}
+
+.sign-up div{
+    text-align: center;
+    font-family: "Rubik Bubbles", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 10px;
+    color: rgb(16, 16, 16);
+}
+
+footer {
+    margin: 20px 0;
+    display: flex;
+    justify-content:space-between;
+}
+
+footer a {
+    color: rgb(68, 68, 68);
+}
+
+.footer-more-info a {
+    padding: 0 7px;
+}

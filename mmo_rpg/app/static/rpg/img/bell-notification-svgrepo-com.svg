@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" id="Stock_cut" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<desc/>
+
+<g>
+
+<path d="M12,27   c0,2.209,1.791,4,4,4s4-1.791,4-4" fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+
+<path d="M16,3L16,3   c-4.971,0-9,4.029-9,9v9l-2,3v3h22v-3l-2-3v-9C25,7.029,20.971,3,16,3z" fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+
+<line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="7" x2="18" y1="21" y2="21"/>
+
+<line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="20" x2="22" y1="21" y2="21"/>
+
+<path d="M16,0L16,0c-1.105,0-2,0.895-2,2v2h4V2C18,0.895,17.105,0,16,0z"/>
+
+</g>
+
+</svg>

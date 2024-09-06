@@ -1,0 +1,31 @@
+.custom-placeholder::placeholder{
+    font-family: "Rubik Bubbles", system-ui;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+.profile-username input {
+    background-color: rgb(16, 16, 16);
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "PT Sans Narrow", sans-serif;
+    color: white;
+    padding: 0 10px;
+    border-radius: 10px;
+    width: 266px;
+    -webkit-text-stroke: 0px #000000;
+}
+
+.profile-status textarea{
+    resize: none;
+    background-color: rgb(16, 16, 16);
+    font-size: 12px;
+    font-weight: 400;
+    font-family: "PT Sans Narrow", sans-serif;
+    color: white;
+    border-radius: 10px;
+    width: 276px;
+    padding: 10px 5px 20px;
+    margin: 0 0 15px
+}
