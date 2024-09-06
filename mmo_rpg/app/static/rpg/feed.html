@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/profile.css">
-    <link rel="stylesheet" href="./css/edit-profile.css">
+    <link rel="stylesheet" href="./css/feed.css">
+    <link rel="stylesheet" href="./css/posts.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
-    <title>Профиль</title>
+    <title>Лента</title>
 </head>
 <body>
     <div class="fixed-page">
@@ -137,29 +137,147 @@
                 </div>
             </ul>
         </header>
-        <div class="page-content center">
-            <form action="#">
-                <div class="profile-head page-block">
-                    <div class="profile-photo cyrcle">
-                        <img class="cyrcle-inner" src="./img/default-avatar.jpg" alt="profile-photo">
+    <div class="center">
+        <div class="page-block">
+            <div class="feed-head">
+                <h1 class="feed-title">Новости</h1>
+                <div class="feed-filters">
+                    <div class="role-filter feed-filter-child">
+                        <button onclick="ShowRoles()" class="roles-btn">Роль</button>
+                        <div id="all-roles" class="all-roles">
+                          <a href="#DD">ДД</a>
+                          <a href="#Healer">Хилер</a>
+                        </div>
                     </div>
-                    <div class="profile-info">
-                        <!-- max lenght 16 -->
-                        <h2 class="profile-username">
-                            <input class="custom-placeholder" name="username" type="text" value="Какой либо юзер" placeholder="Придумайте username">
-                        </h2>
-                        <span class="profile-status">
-                            <textarea class="custom-placeholder" name="status" placeholder="Ваш статус"></textarea>
-                        </span>
-                        <p>
-                            <input class="custom-placeholder" name="avatar" type="file">
-                        </p>
-                    </div>
-                    <div class="profile-settings">
-                        <button class="profile-settings-button" >Подтвердить</button>
-                    </div>
+                    <a class="feed-filter-child" href="#">Популярные</a>
+                    <a class="feed-filter-child" href="#">Новые</a>
                 </div>
-            </form>
+            </div>
+            <ul class="post-list">
+                <li class="post-item">
+                    <div class="post">
+                        <div class="post-head">
+                            <div class="post-owner-pic cyrcle">
+                                <img class="cyrcle-inner" src="./img/default-avatar.jpg" alt="post-profile-photo">
+                            </div>
+                            <div class="post-head-links">
+                                <a class="post-owner" href="#">Какой либо юзер</a>
+                                <a class="post-category" href="#">Хилер</a>
+                            </div>
+                            <span class="post-time">
+                                2 дня назад
+                            </span>                    
+                        </div>
+                        <div class="media-post-data">
+                            <div class="media-item">
+                                <img src="./img/post-photo-3.JPG" alt="post-photo-3">
+                            </div>
+                            <div class="media-item">
+                                <img src="./img/post-photo-2.JPG" alt="post-photo-2">
+                            </div>
+                            <div class="media-item">
+                                <img src="./img/post-photo-1.JPG" alt="post-photo-1">
+                            </div>
+                        </div>
+                        <div class="text-post-data">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eos numquam laborum qui? Harum quis aut eaque, ab error necessitatibus sunt minima sit et laboriosam, dolorem reiciendis modi eius quibusdam!
+                        </div>
+                        <div class="other-post-data">
+                            <button type="button" class="post-like">
+                                200
+                                <svg width="22px" height="22px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="icomoon-ignore">
+                                    </g>
+                                    <path d="M21.886 5.115c3.521 0 6.376 2.855 6.376 6.376 0 1.809-0.754 3.439-1.964 4.6l-10.297 10.349-10.484-10.536c-1.1-1.146-1.778-2.699-1.778-4.413 0-3.522 2.855-6.376 6.376-6.376 2.652 0 4.925 1.62 5.886 3.924 0.961-2.304 3.234-3.924 5.886-3.924zM21.886 4.049c-2.345 0-4.499 1.089-5.886 2.884-1.386-1.795-3.54-2.884-5.886-2.884-4.104 0-7.442 3.339-7.442 7.442 0 1.928 0.737 3.758 2.075 5.152l11.253 11.309 11.053-11.108c1.46-1.402 2.275-3.308 2.275-5.352 0-4.104-3.339-7.442-7.442-7.442v0z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    </svg>
+                            </button>
+                            <a class="post-comments" href="#">
+                                200
+                                <svg width="22px" height="22px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="icomoon-ignore">
+                                    </g>
+                                    <path d="M26.664 4.82h-21.328c-1.178 0-2.132 0.955-2.132 2.133v13.868c0 1.178 0.955 2.133 2.132 2.133h14.968l4.226 4.226v-4.226h2.134c1.178 0 2.133-0.955 2.133-2.133v-13.868c-0-1.178-0.955-2.133-2.133-2.133zM27.73 20.821c0 0.588-0.479 1.066-1.066 1.066h-3.2v2.718l-2.718-2.718h-15.41c-0.588 0-1.066-0.478-1.066-1.066v-13.868c0-0.588 0.479-1.066 1.066-1.066h21.328c0.588 0 1.066 0.478 1.066 1.066v13.868z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    <path d="M16 12.824c-0.589 0-1.066 0.478-1.066 1.066s0.477 1.066 1.066 1.066 1.066-0.477 1.066-1.066c0-0.588-0.477-1.066-1.066-1.066z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    <path d="M20.265 12.824c-0.589 0-1.066 0.478-1.066 1.066s0.477 1.066 1.066 1.066 1.066-0.477 1.066-1.066c0-0.588-0.477-1.066-1.066-1.066z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    <path d="M11.835 12.824c-0.589 0-1.066 0.478-1.066 1.066s0.477 1.066 1.066 1.066 1.066-0.477 1.066-1.066c0-0.588-0.477-1.066-1.066-1.066z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    </svg>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="post-item">
+                    <div class="post">
+                        <div class="post-head">
+                            <div class="post-owner-pic cyrcle">
+                                <img class="cyrcle-inner" src="./img/default-avatar.jpg" alt="post-profile-photo">
+                            </div>
+                            <div class="post-head-links">
+                                <a class="post-owner" href="#">Второй юзер</a>
+                                <a class="post-category" href="#">ДД</a>
+                            </div>
+                            <span class="post-time">
+                                2 дня назад
+                            </span>
+                        </div>
+                        <div class="media-post-data">
+                            <div class="media-item">
+                                <img src="./img/post-photo-3.JPG" alt="post-photo-4">
+                            </div>
+                            <div class="media-item">
+                                <img src="./img/post-photo-2.JPG" alt="post-photo-5">
+                            </div>
+                            <div class="media-item">
+                                <img src="./img/post-photo-1.JPG" alt="post-photo-6">
+                            </div>
+                        </div>
+                        <div class="text-post-data">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eos numquam laborum qui? Harum quis aut eaque, ab error necessitatibus sunt minima sit et laboriosam, dolorem reiciendis modi eius quibusdam!
+                        </div>
+                        <div class="other-post-data">
+                            <button class="post-like liked">
+                                200
+                                <svg width="22px" height="22px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="icomoon-ignore">
+                                    </g>
+                                    <path d="M21.886 5.115c3.521 0 6.376 2.855 6.376 6.376 0 1.809-0.754 3.439-1.964 4.6l-10.297 10.349-10.484-10.536c-1.1-1.146-1.778-2.699-1.778-4.413 0-3.522 2.855-6.376 6.376-6.376 2.652 0 4.925 1.62 5.886 3.924 0.961-2.304 3.234-3.924 5.886-3.924zM21.886 4.049c-2.345 0-4.499 1.089-5.886 2.884-1.386-1.795-3.54-2.884-5.886-2.884-4.104 0-7.442 3.339-7.442 7.442 0 1.928 0.737 3.758 2.075 5.152l11.253 11.309 11.053-11.108c1.46-1.402 2.275-3.308 2.275-5.352 0-4.104-3.339-7.442-7.442-7.442v0z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    </svg>
+                            </button>
+                            <a class="post-comments" href="#">
+                                200
+                                <svg width="22px" height="22px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="icomoon-ignore">
+                                    </g>
+                                    <path d="M26.664 4.82h-21.328c-1.178 0-2.132 0.955-2.132 2.133v13.868c0 1.178 0.955 2.133 2.132 2.133h14.968l4.226 4.226v-4.226h2.134c1.178 0 2.133-0.955 2.133-2.133v-13.868c-0-1.178-0.955-2.133-2.133-2.133zM27.73 20.821c0 0.588-0.479 1.066-1.066 1.066h-3.2v2.718l-2.718-2.718h-15.41c-0.588 0-1.066-0.478-1.066-1.066v-13.868c0-0.588 0.479-1.066 1.066-1.066h21.328c0.588 0 1.066 0.478 1.066 1.066v13.868z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    <path d="M16 12.824c-0.589 0-1.066 0.478-1.066 1.066s0.477 1.066 1.066 1.066 1.066-0.477 1.066-1.066c0-0.588-0.477-1.066-1.066-1.066z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    <path d="M20.265 12.824c-0.589 0-1.066 0.478-1.066 1.066s0.477 1.066 1.066 1.066 1.066-0.477 1.066-1.066c0-0.588-0.477-1.066-1.066-1.066z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    <path d="M11.835 12.824c-0.589 0-1.066 0.478-1.066 1.066s0.477 1.066 1.066 1.066 1.066-0.477 1.066-1.066c0-0.588-0.477-1.066-1.066-1.066z" fill="#00DDE1">
+                                    
+                                    </path>
+                                    </svg>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
+    <script src="./js/drop-button.js"></script>
 </body>

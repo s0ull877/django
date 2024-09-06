@@ -3,6 +3,7 @@
 }
 
 .post-item {
+    margin-bottom: 30px;
     padding: 20px;
     background-color: rgb(16, 16, 16);
     border-radius: 15px 15px 15px 15px;
@@ -13,9 +14,19 @@
     display: flex;
 }
 
-.post-head-data {
+.post-head-links {
     display: flex;
     flex-direction: column;
+}
+
+.post-time {
+    color: white;
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    display: block;
+    margin: 5px 0 0 auto;
 }
 
 .post-owner-pic {
@@ -90,6 +101,10 @@
     padding: 0px 5px;
     border-radius: 15px;
     color:rgb(0, 221, 255);
+}
+
+.liked {
+    background-color: rgba(0, 221, 255, 0.331);
 }
 
 .post-comments {
