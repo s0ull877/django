@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/profile.css">
-    <link rel="stylesheet" href="./css/edit-profile.css">
+    <link rel="stylesheet" href="./css/notifications.css">
+    <link rel="stylesheet" href="./css/posts.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
-    <title>Профиль</title>
+    <title>Уведомления</title>
 </head>
 <body>
     <div class="fixed-page">
@@ -137,29 +137,57 @@
                 </div>
             </ul>
         </header>
-        <div class="page-content center">
-            <form action="#">
-                <div class="profile-head page-block">
-                    <div class="profile-photo cyrcle">
-                        <img class="cyrcle-inner" src="./img/default-avatar.jpg" alt="profile-photo">
+    <div class="center">
+        <div class="page-block">
+            <ul class="notifications-list">
+                <li class="notification-item">
+                    <div class="notification">
+                        <div class="notification-head">
+                            <a href="./profile.html">
+                                <div class="cyrcle">
+                                    <img class="cyrcle-inner" src="./img/default-avatar.jpg" alt="">
+                                </div>
+                                <span class="notification-owner">Какой либо юзер</span>
+                            </a>
+                        </div>
+                        <div class="notification-content">
+                            Sounds good!
+                        </div>
+                        <div class="notification-buttons">
+                            <button class="approve-notifications">Принять</button>
+                            <button class="reject-notificaton">Отклонить</button>
+                        </div>
                     </div>
-                    <div class="profile-info">
-                        <!-- max lenght 16 -->
-                        <h2 class="profile-username">
-                            <input class="custom-placeholder" name="username" type="text" value="Какой либо юзер" placeholder="Придумайте username">
-                        </h2>
-                        <span class="profile-status">
-                            <textarea class="custom-placeholder" name="status" placeholder="Ваш статус"></textarea>
-                        </span>
-                        <p>
-                            <input class="custom-placeholder" name="avatar" type="file">
-                        </p>
+                </li>
+                <li class="notification-item">
+                    <div class="notification">
+                        <div class="notification-head">
+                            <a href="./profile.html">
+                                <div class="cyrcle">
+                                    <img class="cyrcle-inner" src="./img/default-avatar.jpg" alt="">
+                                </div>
+                                <span class="notification-owner">Какой либо юзер</span>
+                            </a>
+                        </div>
+                        <div class="notification-to-post">
+                            <a href="./post.html">
+                                комментарий к посту
+                            </a>
+                            <p>
+                                dskajgdjsahdja
+                            </p>
+                        </div>
+                        <div class="notification-content">
+                            Sounds good!
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eos numquam laborum qui? Harum quis aut eaque, ab error necessitatibus sunt minima sit et laboriosam, dolorem reiciendis modi eius quibusdam!
+                        </div>
+                        <div class="notification-buttons">
+                            <button class="approve-notifications">Принять</button>
+                            <button class="reject-notificaton">Отклонить</button>
+                        </div>
                     </div>
-                    <div class="profile-settings">
-                        <button class="profile-settings-button" >Подтвердить</button>
-                    </div>
-                </div>
-            </form>
+                </li>
+            </ul>
         </div>
     </div>
 </body>
