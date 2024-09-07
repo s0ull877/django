@@ -1,3 +1,8 @@
+.full-bkg {
+    background-color: rgb(16, 16, 16);
+    border-radius: 15px;
+}
+
 .post-list {
     margin: 30px 40px;
 }
@@ -20,7 +25,7 @@
 }
 
 .post-time {
-    color: white;
+    color: rgba(0, 221, 255, 0.331);
     font-family: "PT Sans Narrow", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -89,14 +94,15 @@
     font-style: normal;
     letter-spacing: 1px;
     line-height: 16px;
+    text-align: justify;
 }
 
-.other-post-data, .post-comments, .post-like {
+.other-post-data, .post-comments-button, .post-like {
     display: flex;
     align-items: center;
 }
 
-.post-comments, .post-like {
+.post-comments-button, .post-like {
     background-color: rgb(30, 30, 30);
     padding: 0px 5px;
     border-radius: 15px;
@@ -107,6 +113,6 @@
     background-color: rgba(0, 221, 255, 0.331);
 }
 
-.post-comments {
+.post-comments-button {
     margin: 0 0 0 10px;
 }
