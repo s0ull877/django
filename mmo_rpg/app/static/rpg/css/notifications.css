@@ -100,11 +100,107 @@ header {
     padding: 0;
 }
 
-.notification-head a{
+.notification-head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.notification-owner{
     display: flex;
 }
 
-.notification-head div {
+.notification-owner-name {
+    color: white;
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+}
+
+.notification-time {
+    color: rgb(128, 128, 128);
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}   
+
+.notification-head .cyrcle {
     width: 30px;
     height: 30px;
+    margin: 0 5px 0 0;
+}
+
+.notification-to-post {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color:white;
+    margin: 10px 0;
+}
+
+.notification-to-post a {
+    display: flex;
+}
+
+.post-time {
+    color: rgb(0, 221, 255);
+    margin: 0 5px 0 0;
+}
+
+.post-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: rgb(200, 199, 199);
+}
+
+.notification-content {
+    background-color: rgb(16, 16, 16);
+    margin: 0 0 10px 0;
+    padding: 5px;
+    text-align:justify;
+}
+
+.notification-buttons {
+    padding: 5px;
+}
+
+.approve-notification {
+    color: yellow;
+    border-radius: 5px;
+    padding: 6px;
+    margin-right: 10px;
+    background-color: rgb(16, 16, 16);
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    border: 1px yellow solid;
+}
+
+.approve-notification {
+    color: yellow;
+    border-radius: 5px;
+    padding: 6px;
+    margin-right: 10px;
+    background-color: rgb(16, 16, 16);
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    border: 1px yellow solid;
+}
+
+.eject-notificaton {
+    color: red;
+    border-radius: 5px;
+    padding: 6px;
+    margin-right: 10px;
+    background-color: rgb(16, 16, 16);
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    border: 1px red solid;   
 }

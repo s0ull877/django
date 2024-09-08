@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/notifications.css">
-    <link rel="stylesheet" href="./css/posts.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Rubik+Mono+One&display=swap" rel="stylesheet">
@@ -143,47 +142,65 @@
                 <li class="notification-item">
                     <div class="notification">
                         <div class="notification-head">
-                            <a href="./profile.html">
+                            <a class="notification-owner" href="./profile.html">
                                 <div class="cyrcle">
                                     <img class="cyrcle-inner" src="./img/default-avatar.jpg" alt="">
                                 </div>
-                                <span class="notification-owner">Какой либо юзер</span>
+                                <div>
+                                    <span class="notification-owner-name">Какой либо юзер</span>
+                                    <p class="notification-time">
+                                        2 минуты назад
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="notification-to-post">
+                            <a href="./post.html">
+                                <span class="post-time">Отклик к посту от 12.09: </span>
+                                <span class="post-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eos numquam laborum qui? Harum quis aut eaque, ab error necessitatibus sunt minima sit et laboriosam, dolorem reiciendis modi eius quibusdam!
+                                </span>
                             </a>
                         </div>
                         <div class="notification-content">
                             Sounds good!
                         </div>
                         <div class="notification-buttons">
-                            <button class="approve-notifications">Принять</button>
-                            <button class="reject-notificaton">Отклонить</button>
+                            <button class="approve-notification">Принять</button>
+                            <button class="eject-notificaton">Отклонить</button>
                         </div>
                     </div>
                 </li>
                 <li class="notification-item">
                     <div class="notification">
                         <div class="notification-head">
-                            <a href="./profile.html">
+                            <a class="notification-owner" href="./profile.html">
                                 <div class="cyrcle">
                                     <img class="cyrcle-inner" src="./img/default-avatar.jpg" alt="">
                                 </div>
-                                <span class="notification-owner">Какой либо юзер</span>
+                                <div>
+                                    <span class="notification-owner-name">Какой либо юзер</span>
+                                    <p class="notification-time">
+                                        5 минут назад
+                                    </p>
+                                </div>
                             </a>
                         </div>
                         <div class="notification-to-post">
                             <a href="./post.html">
-                                комментарий к посту
+                                <span class="post-time">Отклик к посту от 12.09: </span>
+                                <span class="post-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eos numquam laborum qui? Harum quis aut eaque, ab error necessitatibus sunt minima sit et laboriosam, dolorem reiciendis modi eius quibusdam!
+                                </span>
                             </a>
-                            <p>
-                                dskajgdjsahdja
-                            </p>
                         </div>
                         <div class="notification-content">
                             Sounds good!
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eos numquam laborum qui? Harum quis aut eaque, ab error necessitatibus sunt minima sit et laboriosam, dolorem reiciendis modi eius quibusdam!
                         </div>
                         <div class="notification-buttons">
-                            <button class="approve-notifications">Принять</button>
-                            <button class="reject-notificaton">Отклонить</button>
+                            <button class="approve-notification">Принять</button>
+                            <button class="eject-notificaton">Отклонить</button>
                         </div>
                     </div>
                 </li>
