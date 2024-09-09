@@ -1,0 +1,94 @@
+body {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(16, 16, 16);
+    color: white;
+}
+
+.fixed-page {
+    width: 1290px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+header {
+    background-color: rgb(30, 30, 30);
+}
+
+.center {
+    padding: 0 240px;
+}
+
+
+.header-list {
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+}
+
+.header-item a {
+    padding-right: 100px;
+}
+
+.search-box {
+    background-color:rgb(16, 16, 16);
+    border-radius: 15px 15px 15px 15px;
+}
+
+.search-box-view {
+    display: flex;
+    align-items: center;
+    padding: 0 15px 0 3px;
+    height: 29px;
+}
+
+.search-box input {
+    background-color: rgb(16, 16, 16);
+}
+
+.search-box input::-ms-clear {
+    color: rgb(30, 30, 30);
+}
+
+.profile-actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.profile-actions a:nth-of-type(2n) {
+    padding: 0 8px;
+}
+
+.cyrcle {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-pic {
+    border: 2px solid black;
+    width: 40px;
+    height: 40px;
+}
+
+.cyrcle-inner {
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.page-block {
+    background-color: rgb(30, 30, 30);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 15px;
+    border: 1px solid rgb(0, 221, 255);
+}
+
+.no-border {
+    border: none;
+    border-radius: 0;
+}

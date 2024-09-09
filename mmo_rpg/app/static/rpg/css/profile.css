@@ -146,6 +146,11 @@ header {
     color: rgb(0, 221, 255);
 }
 
+.profile-settings-button:hover {
+    color: rgba(0, 221, 255, 0.816);
+    border: 0.1px solid rgba(0, 221, 255, 0.816);
+}
+
 .profile-body h2 {
     text-align: center;
     font-size: 28px;
