@@ -141,7 +141,7 @@
             <form action="#">
                 <div class="profile-head page-block">
                     <div class="profile-photo cyrcle">
-                        <img class="cyrcle-inner" src="./img/default-avatar.jpg" alt="profile-photo">
+                        <img id="profile-photo-large" class="cyrcle-inner" src="./img/default-avatar.jpg" alt="profile-photo">
                     </div>
                     <div class="profile-info">
                         <!-- max lenght 16 -->
@@ -152,7 +152,7 @@
                             <textarea class="custom-placeholder" name="status" placeholder="Ваш статус"></textarea>
                         </span>
                         <p>
-                            <input class="custom-placeholder" name="avatar" type="file">
+                            <input id="new-profile-pic" class="custom-placeholder" name="avatar" type="file">
                         </p>
                     </div>
                     <div class="profile-settings">
@@ -162,4 +162,5 @@
             </form>
         </div>
     </div>
+    <script src="./js/preview-to-new-avatar.js"></script>
 </body>

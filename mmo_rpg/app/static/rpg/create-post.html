@@ -150,7 +150,7 @@
                                     <div class="post-head-links">
                                         <a class="post-owner" href="#">Какой либо юзер</a>
                                         <select class="post-category" name="category" id="category">
-                                            <option value=""> -- Выберите категорию -- </option>
+                                            <option value="">Выберите категорию</option>
                                             <option value="DD">ДД</option>
                                             <option value="Healer">Хилер</option>
                                         </select>
@@ -159,13 +159,35 @@
                                         Только что
                                     </span>
                                 </div>
-                                <input type="file" name="post-photo-1">
+                                <div class="new-media">
+                                    <label class="upload-file" for="file-upload-1">
+                                        Загрузить медиа
+                                        <p>+</p>
+                                        <input id="file-upload-1" type="file"/>
+                                    </label>
+                                </div>
+                                <div class="new-media display-none">
+                                    <label class="upload-file " for="file-upload-2">
+                                        Загрузить еще
+                                        <p>+</p>
+                                        <input id="file-upload-2" type="file"/>
+                                    </label>
+                                </div>
+                                <div class="new-media display-none">
+                                    <label class="upload-file" for="file-upload-3">
+                                        Загрузить еще
+                                        <p>+</p>
+                                        <input id="file-upload-3" type="file"/>
+                                    </label>
+                                </div>
                                 <div class="media-post-data">
                                 </div>
                                 <div class="text-post-data">
                                     <textarea name="post-text" id="post-text" placeholder="Расскажите что нибудь"></textarea>
                                 </div>
-                                <button>Опубликовать</button>
+                                <button class="publish-btn">
+                                    <span>Опубликовать</span>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -173,4 +195,6 @@
             </div>
         </div>
     </div>
+    <script src="./js/textarea-resize.js"></script>
+    <script src="./js/add-photo-to-post.js"></script>
 </body>

@@ -3,7 +3,7 @@ function ShowRoles() {
 }
 
 function filterFunction() {
-    var filter, ul, li, a, i;
+    var filter, a, i;
     div = document.getElementsByClassName("all-roles")
     console.log(div)
     a = div.getElementsByTagName("a");

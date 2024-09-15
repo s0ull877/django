@@ -10,7 +10,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 
 header {
@@ -91,4 +90,75 @@ header {
 .no-border {
     border: none;
     border-radius: 0;
+}
+
+.post-category {
+    background-color: inherit;
+    border: none;
+    appearance: none;
+    outline: none
+}
+
+.post-category option {
+    background-color: inherit;
+}
+
+.text-post-data textarea {
+    resize: none;
+    width: 100%;
+    background-color: inherit;
+    border-top: 1px solid rgba(0, 221, 255, 0.834);
+    border-bottom: 1px solid rgba(0, 221, 255, 0.834);
+    padding: 10px 0;
+    height: auto;
+    color: white;
+    overflow:auto;
+    height: auto;
+}
+
+.publish-btn {
+    color:rgb(0, 255, 0);
+    padding: 7px;
+    border: 1px solid rgb(0, 255, 0);
+    background-color: rgb(9, 9, 9);
+    border-radius: 5px;
+}
+
+.publish-btn:hover {
+    opacity: 0.816;
+}
+
+input[type='file'] {
+    display: none;
+}
+
+.media-item {
+    position: absolute;
+}
+
+.display-none {
+    display: none;
+}
+
+.upload-file {
+    display: flex;
+    flex-direction: column;
+    width: 90px;
+    height: 90px;
+    text-align: center;
+    padding: 7px;
+    border: 1px solid rgb(0, 221, 255);
+    border-radius: 15px;
+    justify-content: space-around;
+    color: rgb(0, 221, 255);
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.upload-file p {
+    font-size: 30px;
+    padding: 0 0 10px;
 }
