@@ -1,24 +1,31 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/register.css">
+    <link rel="stylesheet" href="{% static 'rpg/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'rpg/css/register.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <title>Регистрация</title>
 </head>
 <body>
-    <div class="errors">
-        asdihaskdhaskjd
-    </div>
+    {% if form.errors %}
+        <div class="errors">
+            {{form.username.errors}}
+            {{form.email.errors}}
+            {{form.password1.errors}}
+            {{form.password2.errors}}
+        </div>
+    {% endif %}
     <div class="popup">
         <div class="content">
             <div class="registration">
                 <div class="axevich-sector half-width">
-                    <img src="./img/axe-logot.png" alt="axe-avatar">
+                    <img src="{% static 'rpg/img/axe-logot.png' %}" alt="axe-avatar">
                     <h2 class="axevich-title">Аксевич на голову выше!</h2>
                 </div>
                 <div class="form-sector half-width">
@@ -115,19 +122,20 @@
                     </svg>
                     <h1 class="form-title">Кто ты, путник?</h1>
                     <!-- тут должен быть редирект на страницу info, где говорится чекнуть почту -->
-                    <form action="./profile.html">
+                    <form action="{% url 'users:register' %}", method="POST">
+                        {% csrf_token %}
                         <ul>
                             <li class="form-item">
-                                <input class=" custom-placeholder" placeholder="example@gmail.com" type="email">
+                                {{ form.email }}
                             </li>
                             <li class="form-item">
-                                <input class=" custom-placeholder" placeholder="username" type="text">
+                                {{ form.username }}
                             </li>
                             <li class="form-item">
-                                <input class=" custom-placeholder" placeholder="Пароль" type="password">
+                                {{ form.password1 }}
                             </li>
                             <li class="form-item">
-                                <input class="custom-placeholder" placeholder="Повторите пароль" type="password">
+                                {{ form.password2 }}
                             </li>
                             <button class="form-item-button" type="submit">
                                 <li>

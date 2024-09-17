@@ -12,7 +12,17 @@ body {
 .half-width {
     width: 50%;
 }
- 
+
+.errors {
+    color:  rgb(255, 255, 255);
+    font-family: "Rubik Mono";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    margin: 50px auto;
+}
+
 .popup {
     background-color: rgb(36, 36, 36);
     margin: 50px auto;
