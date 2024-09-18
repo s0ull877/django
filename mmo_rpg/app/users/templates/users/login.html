@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="{% static 'rpg/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'rpg/css/login.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Rubik+Mono+One&display=swap" rel="stylesheet">
@@ -139,7 +141,7 @@
                     </span> 
                 </div>
                 <div>
-                    <img src="./img/axe-hero.png" alt="axe-hero">
+                    <img src="{% static 'rpg/img/axe-hero.png' %}" alt="axe-hero">
                 </div>
                 <div class="greeting-descr">Присоединяйтесь к лучшему фанатскому ресурсу The world of Axe!</div>
             </div>
@@ -238,15 +240,21 @@
                             </g>
                         </svg>
                         <div class="sign-in-title">Вход Аксевич</div>
-                        <form class="sign-in-form" action="./profile.html">
+                        {% if message %}
+                        <span style="color: yellow;">
+                            {{message}}
+                        </span>
+                        {% endif %}
+                        <form class="sign-in-form" action="{% url 'users:login' %}" method="POST">
+                            {% csrf_token %}
                             <ul class="sign-list">
                                 <li class="sign-item">
-                                    <input type="text" placeholder="Email или username" class="custom-placeholder">
+                                    {{form.username}}
                                 </li>
                                 <li class="sign-item">
-                                    <input type="password" placeholder="Пароль" class="custom-placeholder">
+                                    {{form.password}}
                                 </li>
-                                <button class="center-button">
+                                <button class="center-button" type="submit">
                                     <li class="sign-button sign-item" id="continue">
                                         <span class="continue-in">Войти</span>
                                     </li>
@@ -446,7 +454,7 @@
                     <div class="sign-up">
                         <ul class="sign-list">
                             <li class="sign-button">
-                                <a href="./register.html">
+                                <a href="{% url 'users:register' %}">
                                     <span class="create-account">Создать аккаунт</span>
                                 </a>
                             </li>
@@ -465,9 +473,9 @@
                 </div>
             </div>
             <div class="footer-more-info">
-                <a href="./informations.html">О Аксевич</a>
-                <a href="./informations.html">Правила</a>
-                <a href="./informations.html">Axe API</a>
+                <a href="{% url 'users:about' %}">О Аксевич</a>
+                <a href="{% url 'users:rules' %}">Правила</a>
+                <a href="{% url 'users:axe-api' %}">Axe API</a>
             </div>
             <div class="change-language">
                 <a href="./informations.html">Сменить язык | Change language</a>

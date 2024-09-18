@@ -36,3 +36,15 @@ class UserRegistrationForm(UserCreationForm):
         # send_email_verification.delay(user.id)
 
         return user
+    
+
+class UserLoginForm(forms.Form):
+
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'class': "custom-placeholder",
+        'placeholder': "Email или username"
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': "custom-placeholder",
+        'placeholder': "Пароль"
+    }))

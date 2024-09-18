@@ -1,8 +1,14 @@
 from django.urls import path
 
-from users.views import register_user_view
+from users import views
 app_name = 'users'
 
 urlpatterns = [
-    path('register/', register_user_view, name='register'),
+# about api rules
+    path('register/', views.register_user_view, name='register'),
+    path('login/', views.login_user_view, name='login'),
+
+    path('about/', views.about_view, name='about'),
+    path('axe-api/', views.axe_api_view, name='axe-api'),
+    path('rules/', views.rules_view, name='rules'),
 ]

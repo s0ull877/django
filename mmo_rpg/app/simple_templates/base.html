@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'rpg/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'rpg/css/informations.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="popup">
+        <div class="inner">
+            {% block content %}{% endblock content %}
+            <a href="{% url 'users:login' %}">Назад</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<!-- 
+Правила
+АПИ
+О нас
+Письмо на почту пришло
+смена языков
+-->
