@@ -4,7 +4,6 @@ from users import views
 app_name = 'users'
 
 urlpatterns = [
-# about api rules
     path('register/', views.register_user_view, name='register'),
     path('login/', views.login_user_view, name='login'),
 
