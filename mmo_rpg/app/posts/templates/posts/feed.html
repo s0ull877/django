@@ -1,9 +1,14 @@
 {% extends "posts/base.html" %}
 
-{% block class %}
+{% load static %}
+{% load categories_tag %}
+{% load query_transform %}
+{% load clear_role %}
+
+{% block css %}
     <link rel="stylesheet" href="{% static 'rpg/css/feed.css' %}">
     <link rel="stylesheet" href="{% static 'rpg/css/posts.css' %}">
-{% endblock class %}
+{% endblock css %}
 
 {% block content %}
         <div class="center">
@@ -14,12 +19,15 @@
                         <div class="role-filter">
                             <button onclick="ShowRoles()" class="roles-btn feed-filters-child">Роль</button>
                             <div id="all-roles" class="all-roles">
-                                <a href="#DD">ДД</a>
-                                <a href="#Healer">Хилер</a>
+                                <a href="{% url 'posts:feed' %}?{% clear_role %}">Любая</a>
+                                {%categories_tag as categories%}
+                                {% for category in categories %}
+                                    <a href="?{% query_transform role=category.slug %}">{{category.name}}</a>
+                                {% endfor %}
                             </div>
                         </div>
-                        <a class="feed-filters-child" href="#">Популярные</a>
-                        <a class="feed-filters-child" href="#">Новые</a>
+                        <a class="feed-filters-child" href="?{% query_transform filter='popular' %}">Популярные</a>
+                        <a class="feed-filters-child" href="?{% query_transform filter='new' %}">Новые</a>
                     </div>
                 </div>
                 <ul class="post-list">

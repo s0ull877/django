@@ -20,7 +20,7 @@
         <header class="center">
             <ul class="header-list">
                 <li class="header-item">
-                    <a href="./feed.html">
+                    <a href="{% url 'posts:feed' %}">
                         <svg height="40" width="40" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 504.903 504.903" xml:space="preserve">
                             <g transform="translate(1 1)">
                                 <g>
@@ -136,7 +136,7 @@
                             <img width="35" height="35" src="{% static "rpg/img/bell-notification-alert-svgrepo-com.svg" %}" alt="notification-alert">
                         </a> -->
                         <a class="profile-pic cyrcle" href="{% url 'posts:profile' user.username %}">
-                            <img class="cyrcle-inner" src="{% if not owner.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{user.image.url}}{% endif %}" alt="profile-photo-mini">
+                            <img class="cyrcle-inner" src="{% if not user.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{user.image.url}}{% endif %}" alt="profile-photo-mini">
                         </a>
                     </div>
                 {% endif %}

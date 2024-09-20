@@ -7,8 +7,8 @@
                 <img class="cyrcle-inner" src="{% if not post.owner.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{post.owner.image.url}}{% endif %}" alt="post-profile-photo-{{post.id}}">
             </div>
             <div class="post-head-links">
-                <a class="post-owner" href="{% url 'posts:profile' owner.username %}">{{post.owner.username}}</a>
-                <a class="post-category" href="#">{{post.category.name}}</a>
+                <a class="post-owner" href="{% url 'posts:profile' post.owner.username %}">{{post.owner.username}}</a>
+                <a class="post-category" href="{% url 'posts:feed'%}?role={{post.category.slug}}">{{post.category.name}}</a>
             </div>
             {% comment %} ебануть кастомный тег {% endcomment %}
             <span class="post-time">
@@ -29,7 +29,7 @@
         </div>
         <div class="other-post-data">
             <button type="button" class="{% if user in post.liked_users %}liked{% endif %} post-like">
-                {{ post.liked_users.count }}
+                {{ post.likes_count }}
                 <svg width="22px" height="22px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="icomoon-ignore">
                     </g>
@@ -40,7 +40,7 @@
             </button>
             {% comment %} <a class="post-comments-button" href="{% url 'posts:post' post.id %}"> {% endcomment %}
             <a class="post-comments-button" href="./post.html">
-                {{ post.notification_set.count }}
+                {{ post.comments_count }}
                 <svg width="22px" height="22px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="icomoon-ignore">
                     </g>
