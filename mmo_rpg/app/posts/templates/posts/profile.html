@@ -12,7 +12,7 @@
     <div class="page-content center">
         <div class="profile-head page-block">
             <div class="profile-photo cyrcle">
-                <img class="cyrcle-inner" src="{% if not owner.image %}{% static 'rpg/img/default-avatar.jpg' %}{% else %}owner.image.url{% endif %}" alt="profile-photo">
+                <img class="cyrcle-inner" src="{% if not owner.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{owner.image.url}}{% endif %}" alt="profile-photo">
             </div>
             <div class="profile-info">
                 <!-- max lenght 16 -->
@@ -35,10 +35,10 @@
                         <div class="post">
                             <div class="post-head">
                                 <div class="post-owner-pic cyrcle">
-                                    <img class="cyrcle-inner" src="{% if not owner.image %}{% static 'rpg/img/default-avatar.jpg' %}{% else %}owner.image.url{% endif %}" alt="post-profile-photo">
+                                    <img class="cyrcle-inner" src="{% if not post.owner.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{post.owner.image.url}}{% endif %}" alt="post-profile-photo-{{post.id}}">
                                 </div>
                                 <div class="post-head-links">
-                                    <a class="post-owner" href="{% url 'posts:profile' owner.username %}">{{owner.username}}</a>
+                                    <a class="post-owner" href="{% url 'posts:profile' owner.username %}">{{post.owner.username}}</a>
                                     <a class="post-category" href="#">{{post.category.name}}</a>
                                 </div>
                                 {% comment %} ебануть кастомный тег {% endcomment %}
@@ -50,7 +50,7 @@
                                 {% for postimage in post.postimage_set.all %}
                                     <div class="media-item">
                                         <a href="{{ postimage.image.url }}">
-                                            <img src="{{ image.url }}" alt="post-photo-{{image.id}}">
+                                            <img src="{{ postimage.image.url }}" alt="post-photo-{{postimage.id}}">
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -69,6 +69,7 @@
                                         </path>
                                         </svg>
                                 </button>
+                                {% comment %} <a class="post-comments-button" href="{% url 'posts:post' post.id %}"> {% endcomment %}
                                 <a class="post-comments-button" href="./post.html">
                                     {{ post.notification_set.count }}
                                     <svg width="22px" height="22px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -98,6 +99,6 @@
 {% endblock content %}
 
 {% block js %}
-    <script src="./js/like.js"></script>
-    <script src="./js/pretty-post.js"></script>
+    <script src="{% static 'rpg/js/like.js' %}"></script>
+    <script src="{% static 'rpg/js/pretty-post.js' %}"></script>
 {% endblock js %}

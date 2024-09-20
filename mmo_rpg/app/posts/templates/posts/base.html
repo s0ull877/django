@@ -124,19 +124,19 @@
                         </label>
                     </div>
                 </li>
-                {% if user.is_authenticate %}
+                {% if user.is_authenticated %}
                     <div class="profile-actions">
                         <a href="./create-post.html">
-                            <img width="30" height="30" src="{% url 'rpg/img/plus-square-svgrepo-com.svg' %}" alt="plus-post">
+                            <img width="30" height="30" src="{% static 'rpg/img/plus-square-svgrepo-com.svg' %}" alt="plus-post">
                         </a>
                         <a href="./notifications.html">
-                            <img width="30" height="30" src="{% url 'rpg/img/bell-notification-svgrepo-com.svg' %}" alt="notification">
+                            <img width="30" height="30" src="{% static 'rpg/img/bell-notification-svgrepo-com.svg' %}" alt="notification">
                         </a>
                         <!-- <a href="./profile.html">
-                            <img width="35" height="35" src="{% url "rpg/img/bell-notification-alert-svgrepo-com.svg" %}" alt="notification-alert">
+                            <img width="35" height="35" src="{% static "rpg/img/bell-notification-alert-svgrepo-com.svg" %}" alt="notification-alert">
                         </a> -->
-                        <a class="profile-pic cyrcle" href="./profile.html">
-                            <img class="cyrcle-inner" src="{% url 'rpg/img/default-avatar.jpg' %}" alt="profile-photo-mini">
+                        <a class="profile-pic cyrcle" href="{% url 'posts:profile' user.username %}">
+                            <img class="cyrcle-inner" src="{% if not owner.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{user.image.url}}{% endif %}" alt="profile-photo-mini">
                         </a>
                     </div>
                 {% endif %}
