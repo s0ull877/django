@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -28,7 +29,14 @@ class UserRegistrationForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
-    
+    def clean(self):
+        cleaned_data = super(UserRegistrationForm, self).clean()
+        username = cleaned_data.get('username')
+        alphabet=re.search('[а-яА-Я]', username)
+        if bool(re.search('[а-яА-Я]', username)):
+            self.add_error('username', 'Russian words are not allowed in username.')
+        return cleaned_data
+
     def save(self, commit=True):
         
         user = super(UserRegistrationForm, self).save(commit=True)
