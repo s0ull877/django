@@ -13,4 +13,3 @@ def profile_view(request, username):
     }
 
     return render(request=request, template_name='posts/profile.html', context=context)
-    ...
