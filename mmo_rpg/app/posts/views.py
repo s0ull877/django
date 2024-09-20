@@ -5,7 +5,7 @@ from users.models import User
 
 def profile_view(request, username):
 
-    user = User.objects.get(username=username)
+    user = request.user if request.user.username == username else User.objects.get(username=username) 
     context={
         'title': f'Профиль пользователя {user.username}',
         'owner': user,
