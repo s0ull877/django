@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.db.models import Count
 
-from posts.models import Post, Notification
+from posts.models import Post
+from notifications.models import Notification
 from users.models import User
 
 from .utils import full_posts_query
@@ -69,14 +70,3 @@ def post_view(request, pk):
     return render(request=request, template_name='posts/post.html', context=context)
 
 
-
-def notifications_view(request):
-
-    notifications = Notification.objects.select_related('owner', 'to_post').filter(status=None, to_post__owner=request.user).order_by('-date')
-    context={
-        'title': 'Оповещения',
-        'notifications': notifications
-    }
-
-    return render(request=request, template_name='posts/notifications.html', context=context)
-    ...

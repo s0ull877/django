@@ -42,8 +42,8 @@
                                 {{notification.text}}
                             </div>
                             <div class="notification-buttons">
-                                <button class="approve-notification">Принять</button>
-                                <button class="eject-notificaton">Отклонить</button>
+                                <button class="approve-notification" notification_id="{{notification.id}}" change-url="{% url 'notifications:change' %}">{% csrf_token %}Принять</button>
+                                <button class="eject-notificaton" notification_id="{{notification.id}}" change-url="{% url 'notifications:change' %}">{% csrf_token %}Отклонить</button>
                             </div>
                         </div>
                     </li>

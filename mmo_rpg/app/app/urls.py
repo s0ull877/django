@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls', namespace='users')),
     path('', include('posts.urls', namespace='posts')),
+    path('notifications', include('notifications.urls', namespace='notifications')),
 ] + debug_toolbar_urls()
 
 if settings.DEBUG:
