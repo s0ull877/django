@@ -30,17 +30,25 @@ def custom_upload(instance, filename):
     
 
 
-def full_posts_query(data: Manager, **filters) -> QuerySet:
+def full_posts_query(manager: Manager, get_by:dict=None, **filters) -> QuerySet:
+
+    if get_by:
+
+        post=manager.select_related('category', 'owner'). \
+            prefetch_related('postimage_set'). \
+            annotate(likes_count=Count('liked_users__id')).annotate(comments_count=Count('notification__id')).get(**get_by)
+        
+        return post
 
     if not filters:
 
-        posts=data.select_related('category', 'owner'). \
+        posts=manager.select_related('category', 'owner'). \
             prefetch_related('postimage_set'). \
             annotate(likes_count=Count('liked_users__id')).annotate(comments_count=Count('notification__id'))
         
     else:
 
-        posts=data.select_related('category', 'owner'). \
+        posts=manager.select_related('category', 'owner'). \
             prefetch_related('postimage_set'). \
             annotate(likes_count=Count('liked_users__id')).annotate(comments_count=Count('notification__id')).filter(**filters)       
     

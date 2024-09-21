@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.db.models import Count
 
-from posts.models import Post
+from posts.models import Post, Notification
 from users.models import User
 
 from .utils import full_posts_query
@@ -47,3 +48,35 @@ def feed_view(request, *args):
     }
 
     return render(request=request, template_name='posts/feed.html', context=context)
+
+
+def post_view(request, pk):
+
+    if request.method == 'POST':
+
+        # создание комментария
+        ...
+    post = full_posts_query(Post.objects, get_by={'pk': pk})
+    
+    notifications = Notification.objects.select_related('owner').filter(status=True, to_post=post.id)
+    
+    context = {
+        'title': f'Публикация {post.owner.username}',
+        'post': post,
+        'notifications': notifications
+    }
+
+    return render(request=request, template_name='posts/post.html', context=context)
+
+
+
+def notifications_view(request):
+
+    notifications = Notification.objects.select_related('owner', 'to_post').filter(status=None, to_post__owner=request.user).order_by('-date')
+    context={
+        'title': 'Оповещения',
+        'notifications': notifications
+    }
+
+    return render(request=request, template_name='posts/notifications.html', context=context)
+    ...

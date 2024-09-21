@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 
 <li class="post-item">
     <div class="post">
@@ -12,7 +13,7 @@
             </div>
             {% comment %} ебануть кастомный тег {% endcomment %}
             <span class="post-time">
-                {{post.created_at}}
+                {{ post.created_at | naturaltime }}
             </span>
         </div>
         <div class="media-post-data">
@@ -38,8 +39,7 @@
                     </path>
                     </svg>
             </button>
-            {% comment %} <a class="post-comments-button" href="{% url 'posts:post' post.id %}"> {% endcomment %}
-            <a class="post-comments-button" href="./post.html">
+            <a class="post-comments-button" href="{% url 'posts:post' post.id %}">
                 {{ post.comments_count }}
                 <svg width="22px" height="22px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="icomoon-ignore">

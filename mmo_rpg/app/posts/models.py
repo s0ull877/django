@@ -1,3 +1,4 @@
+from typing import Iterable
 from django.db import models
 from users.models import User
 
@@ -71,4 +72,17 @@ class Notification(models.Model):
         null=True,blank=True)
     
     def __str__(self) -> str:
-        return f'Комментарий {self.owner.username} от {self.created_at} к {self.to_post}'
+        return f'Комментарий {self.owner.username} от {self.date} к {self.to_post}'
+    
+    def save(self, *args, **kwargs) -> None:
+
+        if self.owner == self.to_post.owner:
+
+            self.status=True
+
+        if self.status is False:
+            
+            self.delete()
+            return
+
+        return super().save(*args, **kwargs)
