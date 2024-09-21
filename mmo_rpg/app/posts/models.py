@@ -62,6 +62,7 @@ class Notification(models.Model):
         to=Post)
     created_at=models.DateTimeField(
         verbose_name='Дата публикации',
+        name='date',
         auto_now_add=True)
     text=models.TextField(
         verbose_name='Текст комментария')

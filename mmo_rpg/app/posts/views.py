@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.db.models import Count
 
 from posts.models import Post
 from users.models import User
+
+from .utils import full_posts_query
 
 
 def profile_view(request, username):
@@ -10,9 +11,7 @@ def profile_view(request, username):
 
     user = User.objects.get(username=username) 
 
-    posts= user.post_set.select_related('category', 'owner'). \
-        prefetch_related('postimage_set'). \
-        annotate(likes_count=Count('liked_users__id')).annotate(comments_count=Count('notification__id'))
+    posts = full_posts_query(user.post_set)
     
     context={
         'title': f'Профиль пользователя {user.username}',
@@ -29,19 +28,17 @@ def feed_view(request, *args):
 
     if data.get('role'):
 
-        posts = Post.objects.select_related('category', 'owner'). \
-            prefetch_related('postimage_set'). \
-            annotate(likes_count=Count('liked_users__id')).annotate(comments_count=Count('notification__id')).filter(category__slug=data['role'])
+        posts = full_posts_query(Post.objects, category__slug=data['role'])
     
     else:
 
-        posts = Post.objects.select_related('category', 'owner'). \
-            prefetch_related('postimage_set'). \
-            annotate(likes_count=Count('liked_users__id')).annotate(comments_count=Count('notification__id'))
-
+        posts = full_posts_query(Post.objects)
 
     if data.get('filter') == 'popular':
         posts = posts.order_by('-likes_count')
+    else:
+        posts = posts.order_by('-created_at')
+
 
 
     context={
