@@ -67,7 +67,7 @@ def login_user_view(request):
             else:
 
                 login(request=request, user=user)
-                return redirect(to='posts:feed', username=user.username)
+                return redirect(to='posts:profile', username=user.username)
             
         else:
 

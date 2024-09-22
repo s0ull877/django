@@ -19,20 +19,35 @@ notification_buttons_divs.forEach((notification_buttons_div) => {
 function deleteNotification() {
     
     // удаляем отклик после клика
-    notification_item = this.closest('.notification-item');
+    var notification_item = this.closest('.notification-item');
+    var token = this.querySelector('input[name="csrfmiddlewaretoken"]').value
     notification_item.remove();
 
     // если откликов не осталосб, говорю об этом
     if  (!document.querySelector('.notification-item')) {
-        no_notification = document.querySelector('.empty-notifications')
+        var no_notification = document.querySelector('.empty-notifications')
         no_notification.style.display = 'block'
     };
 
+    var notification_id = $(this).attr('notification_id')
+    var change_url = $(this).attr('change_url')
     // для дальнейшей обработки бек-ом
+    console.log(notification_id, token, change_url)
     if (this.classList.contains('approve-notification')) {
-        // 
+        var value = true
     } else {
-
+        var value = false
     };
+    
+    $.ajax({
+        type: "POST",
+        url: change_url,
+        data: {
+            notification_id: notification_id,
+            value: value,
+            csrfmiddlewaretoken: token,
+        }
+    })
+
 }
 

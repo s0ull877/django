@@ -42,8 +42,8 @@
                                 {{notification.text}}
                             </div>
                             <div class="notification-buttons">
-                                <button class="approve-notification" notification_id="{{notification.id}}" change-url="{% url 'notifications:change' %}">{% csrf_token %}Принять</button>
-                                <button class="eject-notificaton" notification_id="{{notification.id}}" change-url="{% url 'notifications:change' %}">{% csrf_token %}Отклонить</button>
+                                <button type="button" class="approve-notification" notification_id="{{notification.id}}" change_url="{% url 'notifications:change' %}">{% csrf_token %}Принять</button>
+                                <button type="button" class="eject-notificaton" notification_id="{{notification.id}}" change_url="{% url 'notifications:change' %}">{% csrf_token %}Отклонить</button>
                             </div>
                         </div>
                     </li>
@@ -57,5 +57,6 @@
 {% endblock content %}
 
 {% block js %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'rpg/js/delete-notification.js' %}"></script>
 {% endblock js %}

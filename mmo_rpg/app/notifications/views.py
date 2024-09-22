@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http.response import JsonResponse
 
 from .models import Notification
 
@@ -15,4 +16,8 @@ def notifications_view(request):
 
 def change_view(request):
 
-    return None
+    notification = Notification.objects.get(pk=request.POST.get('notification_id'))
+    notification.status = True if request.POST.get('value') == 'true' else False
+    notification.save()
+
+    return JsonResponse({'status_code': 200})

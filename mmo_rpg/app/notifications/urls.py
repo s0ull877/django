@@ -5,5 +5,5 @@ app_name = 'notifications'
 
 urlpatterns = [
     path('', views.notifications_view, name='notifications'),
-    path('', views.change_view, name='change'),
+    path('change/', views.change_view, name='change'),
 ]
