@@ -30,26 +30,27 @@ def custom_upload(instance, filename):
     
 
 
+# comments_count считает даже неактивные коменты
 def full_posts_query(manager: Manager, get_by:dict=None, **filters) -> QuerySet:
 
     if get_by:
 
         post=manager.select_related('category', 'owner'). \
-            prefetch_related('postimage_set'). \
-            annotate(likes_count=Count('liked_users__id')).annotate(comments_count=Count('notification__id')).get(**get_by)
+            prefetch_related('postimage_set').prefetch_related('liked_users'). \
+            annotate(comments_count=Count('notification__id')).get(**get_by)
         
         return post
 
     if not filters:
 
         posts=manager.select_related('category', 'owner'). \
-            prefetch_related('postimage_set'). \
-            annotate(likes_count=Count('liked_users__id')).annotate(comments_count=Count('notification__id'))
+            prefetch_related('postimage_set').prefetch_related('liked_users'). \
+            annotate(comments_count=Count('notification__id'))
         
     else:
 
         posts=manager.select_related('category', 'owner'). \
-            prefetch_related('postimage_set'). \
-            annotate(likes_count=Count('liked_users__id')).annotate(comments_count=Count('notification__id')).filter(**filters)       
+            prefetch_related('postimage_set').prefetch_related('liked_users'). \
+            annotate(comments_count=Count('notification__id')).filter(**filters)       
     
     return posts

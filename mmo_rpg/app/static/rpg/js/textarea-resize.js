@@ -1,4 +1,5 @@
-var textarea = document.getElementById('post-text')
+var textarea = document.querySelector('.comment-text')
+console.log(textarea)
 
 function autosize(){
   var el = this;

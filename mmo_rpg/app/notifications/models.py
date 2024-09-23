@@ -21,6 +21,7 @@ class Notification(models.Model):
         verbose_name='Текст комментария')
     status=models.BooleanField(
         verbose_name='Подтверждено',
+        default=None,
         null=True,blank=True)
     
     def __str__(self) -> str:
