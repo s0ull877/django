@@ -126,7 +126,7 @@
                 </li>
                 {% if user.is_authenticated %}
                     <div class="profile-actions">
-                        <a href="./create-post.html">
+                        <a href="{% url 'posts:create' %}">
                             <img width="30" height="30" src="{% static 'rpg/img/plus-square-svgrepo-com.svg' %}" alt="plus-post">
                         </a>
                         <a href="{% url 'notifications:notifications' %}">

@@ -3,9 +3,7 @@ let new_medias = document.querySelectorAll('.new-media')
 var media_data = document.querySelector('.media-post-data')
 
 new_medias.forEach((new_media) => {
-
-  file = new_media.querySelector('input');
-
+  
   new_media.addEventListener('change', newMedia);
 
 });
@@ -13,7 +11,6 @@ new_medias.forEach((new_media) => {
 function newMedia(){
 
   file = this.querySelector('input');
-  console.log(file.files[0].type)
 
   if (file.files[0].type.includes('image')) {
 
@@ -25,11 +22,14 @@ function newMedia(){
     this.style.display = 'none'
   
     next_div=document.querySelector('.display-none');
+    console.log(next_div)
     if (next_div) {
       next_div.classList.remove('display-none');
       next_div.style.position = 'static';
     }
 
+  } else {
+    file.files[0] = null
   }
 
 };

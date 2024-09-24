@@ -3,7 +3,6 @@ let like_buttons = document.querySelectorAll('.post-like');
 function LikeButtonClick() {
 
   like_count_span=this.querySelector('span')
-  console.log(like_count_span);
   
   var token = this.querySelector('input[name="csrfmiddlewaretoken"]').value
 

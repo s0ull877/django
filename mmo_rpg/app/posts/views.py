@@ -1,20 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.db.models import Count
 
-from posts.models import Post
+from posts.models import Post, PostImage
 from notifications.models import Notification
+from posts.templatetags.categories_tag import categories_tag
 from users.models import User
 
 from .utils import full_posts_query
-from .forms import CommentForm
+from .forms import CommentForm, CreatePostForm
 
 
 def profile_view(request, username):
 
 
-    user = User.objects.get(username=username) 
+    user = User.objects.get(username=username)  if request.user.username != username else request.user
 
-    posts = full_posts_query(user.post_set)
+    posts = full_posts_query(user.post_set).order_by('-created_at')
     
     context={
         'title': f'Профиль пользователя {user.username}',
@@ -85,3 +86,45 @@ def post_view(request, pk):
     return render(request=request, template_name='posts/post.html', context=context)
 
 
+def create_post_view(request):
+
+    context = {
+        'title': 'Новая запись'
+    }
+
+    if request.method == 'POST':
+
+        category = categories_tag().filter(id=int(request.POST.get('category'))).first()
+        form=CreatePostForm(request.POST, request.FILES)
+
+        if form.is_valid() and category:
+
+            post = Post.objects.create(
+                owner=request.user,
+                text=form.cleaned_data['text'],
+                category=category
+            )
+
+            # ! Я ПОКА ХЗ КАК ИНАЧЕ(
+            for file in ['image1', 'image2', 'image3']:
+
+                image = form.cleaned_data[file]
+                if image is not None:
+                    PostImage.objects.create(to_post=post, image=image)
+
+
+            return redirect(to='posts:profile', username=request.user.username)
+
+        else:
+
+            message = f'Ошибка: {form.errors}'
+            if category is None:
+                message += 'Выберите категорию!'
+
+
+    else:
+
+        context['form']=CreatePostForm()
+
+
+    return render(request=request, template_name='posts/create-post.html', context=context)

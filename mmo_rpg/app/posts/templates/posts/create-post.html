@@ -1,0 +1,78 @@
+{% extends "posts/base.html" %}
+
+{% load static %}
+{% load categories_tag %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'rpg/css/posts.css' %}">
+    <link rel="stylesheet" href="{% static 'rpg/css/create-post.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class="center">
+        <div class="page-block no-border">
+            <div class="full-bkg">
+                <div class="post-item">
+                    <form action="{% url 'posts:create' %}" enctype='multipart/form-data' method='POST'>
+                        {% csrf_token %}
+                        <div class="post">
+                            <div class="post-head">
+                                <div class="post-owner-pic cyrcle">
+                                    <img class="cyrcle-inner" src="{% if not user.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{user.image.url}}{% endif %}" alt="post-profile-photo">
+                                </div>
+                                <div class="post-head-links">
+                                    <p class="post-owner">{{user.username}}</p>
+                                    <select class="post-category" required name="category" id="category">
+                                        <option value="">Выберите категорию</option>
+                                        {%categories_tag as categories%}
+                                        {% for category in categories %}
+                                            <option value="{{category.id}}">{{category.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <span class="post-time">
+                                    Только что
+                                </span>
+                            </div>
+                            <div class="new-media">
+                                <label class="upload-file" for="{{form.image1.id_for_label}}">
+                                    Загрузить фото
+                                    <p>+</p>
+                                    {{form.image1}}
+
+                                </label>
+                            </div>
+                            <div class="new-media display-none">
+                                <label class="upload-file " for="{{form.image2.id_for_label}}">
+                                    Загрузить еще
+                                    <p>+</p>
+                                    {{form.image2}}
+                                </label>
+                            </div>
+                            <div class="new-media display-none">
+                                <label class="upload-file" for="{{form.image3.id_for_label}}">
+                                    Загрузить еще
+                                    <p>+</p>
+                                    {{form.image3}}
+                                </label>
+                            </div>
+                            <div class="media-post-data">
+                            </div>
+                            <div class="text-post-data">
+                                {{form.text}}
+                            </div>
+                            <button type='submit' class="publish-btn">
+                                <span>Опубликовать</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'rpg/js/textarea-resize.js' %}"></script>
+    <script src="{% static 'rpg/js/add-photo-to-post.js' %}"></script>
+{% endblock js %}

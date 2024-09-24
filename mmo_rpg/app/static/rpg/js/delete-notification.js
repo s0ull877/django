@@ -32,7 +32,6 @@ function deleteNotification() {
     var notification_id = $(this).attr('notification_id')
     var change_url = $(this).attr('change_url')
     // для дальнейшей обработки бек-ом
-    console.log(notification_id, token, change_url)
     if (this.classList.contains('approve-notification')) {
         var value = true
     } else {

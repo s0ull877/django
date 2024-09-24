@@ -46,7 +46,8 @@ class PostImage(models.Model):
         verbose_name='Фото к публикации',
         on_delete=models.CASCADE,
         to=Post)
-    image=models.ImageField(upload_to=custom_upload)
+    image=models.ImageField(upload_to=custom_upload, 
+                            blank=False, null=False)
 
     def __str__(self) -> str:
         return f'Фото к посту {self.to_post}'
