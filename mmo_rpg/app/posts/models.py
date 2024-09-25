@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from users.models import User
 
@@ -50,4 +51,11 @@ class PostImage(models.Model):
 
     def __str__(self) -> str:
         return f'Фото к посту {self.to_post}'
+    
+    # TODO это работает только на 1 обьект, не на bulk
+    def delete(self, using=None, keep_parents=False):
+
+        os.remove(self.image.path)
+
+        return super(PostImage, self).delete(using, keep_parents)
 

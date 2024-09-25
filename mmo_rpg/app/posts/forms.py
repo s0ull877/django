@@ -17,7 +17,6 @@ class CommentForm(forms.Form):
         if len(comment) > 255:
             
             self.add_error('comment', 'Too many symbols!')
-
         
         else:
             

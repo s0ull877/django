@@ -15,7 +15,7 @@ def custom_upload(instance, filename):
 
     try:
     
-        dir_path = settings.MEDIA_ROOT / 'posts_images' / user.username
+        dir_path = settings.MEDIA_ROOT / 'posts_images' / user.id
         os.mkdir(dir_path)
     
     except Exception as e:
@@ -27,7 +27,7 @@ def custom_upload(instance, filename):
         user=post.owner
         filename = uuid4()
     
-        return f'posts_images/{user.username}/{filename}.jpg' 
+        return f'posts_images/{user.id}/{filename}.jpg' 
     
 
 
