@@ -1,4 +1,3 @@
-from typing import Iterable
 from django.db import models
 from users.models import User
 
@@ -21,7 +20,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         to=User)
     text = models.TextField(
-        verbose_name='описание под постом')
+        verbose_name='Описание под постом')
     category=models.ForeignKey(
         verbose_name='Категория',
         on_delete=models.CASCADE,
@@ -36,7 +35,7 @@ class Post(models.Model):
     
     def __str__(self) -> str:
 
-        return f'{self.owner.username} | {self.created_at}'
+        return f'{self.owner.username} | {self.id}'
 
 
 

@@ -1,4 +1,5 @@
 import os
+import re
 from uuid import uuid4
 from django.conf import settings
 
@@ -37,7 +38,8 @@ def full_posts_query(manager: Manager, get_by:dict=None, **filters) -> QuerySet:
 
         post=manager.select_related('category', 'owner'). \
             prefetch_related('postimage_set').prefetch_related('liked_users'). \
-            annotate(comments_count=Count('notification__id')).get(**get_by)
+            annotate(comments_count=Count('notification__id', distinct=True)). \
+            annotate(likes=Count('liked_users__id', distinct=True)).get(**get_by)
         
         return post
 
@@ -45,12 +47,31 @@ def full_posts_query(manager: Manager, get_by:dict=None, **filters) -> QuerySet:
 
         posts=manager.select_related('category', 'owner'). \
             prefetch_related('postimage_set').prefetch_related('liked_users'). \
-            annotate(comments_count=Count('notification__id'))
+            annotate(comments_count=Count('notification__id', distinct=True)). \
+            annotate(likes=Count('liked_users__id', distinct=True))
         
     else:
 
         posts=manager.select_related('category', 'owner'). \
             prefetch_related('postimage_set').prefetch_related('liked_users'). \
-            annotate(comments_count=Count('notification__id')).filter(**filters)       
+            annotate(comments_count=Count('notification__id', distinct=True)). \
+            annotate(likes=Count('liked_users__id', distinct=True)).filter(**filters)       
     
     return posts
+
+def get_redirect_url(request) -> str:
+
+    uri=request.GET['to']
+    
+    if bool(re.match(r'^/post/\d+$', uri)):
+
+        return settings.HOSTNAME + f'/profile/{request.user.username}'
+
+    for k,v in request.GET.dict().items():
+        
+        if k == 'to':
+            continue
+
+        uri += f'&{k}={v}'
+
+    return settings.HOSTNAME + uri

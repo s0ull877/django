@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 
-from .forms import UserRegistrationForm, UserLoginForm
+from users.models import User
 
+from .forms import UserRegistrationForm, UserLoginForm, EditProfileForm
+
+from django.contrib.auth.decorators import login_required
 
 
 def register_user_view(request):
@@ -73,18 +76,40 @@ def login_user_view(request):
 
             return render(request=request, template_name='users/login.html', context=context)
 
+@login_required()
+def profile_edit_view(request):
+
+    form=EditProfileForm(initial={'username':request.user.username,'status':request.user.status})
+    form.user = request.user
+
+    context={
+        'title': 'Изменение профиля',
+        'form': form
+    }
+
+    if request.method == 'POST':
+
+        form=EditProfileForm(request.POST, request.FILES)
+        form.user = request.user
+
+        if form.is_valid():
+
+            user = form.save()
+            return redirect(to='posts:profile', username=user.username)
+
+        else:
+
+            context['form'] = form
+
+    return render(request=request, template_name='users/edit-profile.html', context=context)
 
 
-# class UserProfileView(UpdateView):
+@login_required()
+def logout_view(request):
 
-#     model = User
-#     form_class = UserProfileForm
-#     template_name=r'users/edit-profile.html'
+    logout(request=request)
 
-
-#     def get_success_url(self):
-
-#         return reverse_lazy('users:edit-profile', args=(self.object.id,))
+    return redirect(to='users:login')
 
 
 

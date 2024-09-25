@@ -23,7 +23,7 @@
             </div>
             {% if user == owner %}
                 <div class="profile-settings">
-                    <a class="profile-settings-button" href="./edit-profile.html">Редактировать профиль</a>
+                    <a class="profile-settings-button" href="{% url 'users:edit-profile' %}">Редактировать профиль</a>
                 </div>
             {% endif %}
         </div>

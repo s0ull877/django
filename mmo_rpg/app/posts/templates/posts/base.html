@@ -139,6 +139,12 @@
                             <img class="cyrcle-inner" src="{% if not user.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{user.image.url}}{% endif %}" alt="profile-photo-mini">
                         </a>
                     </div>
+                {% else %}
+                    <div class="profile-actions">
+                        <a href="{% url 'users:login' %}">
+                            <span class='login-btn'>Войти</span>
+                        </a>
+                    </div>
                 {% endif %}
             </ul>
         </header>

@@ -32,7 +32,7 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <button type="button" class="{% if user in post.liked_users.all %}liked{% endif %} post-like" change_url="{% url 'notifications:like' post.id%}">
                 {% csrf_token %}
-                <span>{{ post.liked_users.count }}</span>
+                <span>{{ post.likes }}</span>
                 <svg width="22px" height="22px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="icomoon-ignore">
                     </g>
@@ -60,6 +60,11 @@
                     </path>
                     </svg>
             </a>
+            {% if post.owner == user %}
+                <a class='delete-post' href="{% url 'posts:delete' post.id %}?to={{request.get_full_path}}">
+                    <img src="{% static 'rpg/img/cross-mark-svgrepo-com.svg' %}" alt="delete-post-{{post.id}}">
+                </a>
+            {% endif %}
         </div>
     </div>
 </li>

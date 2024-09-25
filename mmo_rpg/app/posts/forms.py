@@ -8,6 +8,21 @@ class CommentForm(forms.Form):
         'placeholder': "Напишите свой комментарий, он будет виден всем после решения автора поста",
         'rows':"3"
     }))
+    
+
+    def clean_comment(self):
+
+        comment = self.cleaned_data.get('comment')
+
+        if len(comment) > 255:
+            
+            self.add_error('comment', 'Too many symbols!')
+
+        
+        else:
+            
+            return comment
+
 
 class CreatePostForm(forms.Form):
 

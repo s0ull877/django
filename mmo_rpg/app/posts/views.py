@@ -1,15 +1,18 @@
-from django.shortcuts import redirect, render
 from django.db.models import Count
+from django.http import Http404, JsonResponse
+from django.shortcuts import redirect, render
 
 from posts.models import Post, PostImage
 from notifications.models import Notification
 from posts.templatetags.categories_tag import categories_tag
 from users.models import User
 
-from .utils import full_posts_query
+from .utils import full_posts_query, get_redirect_url
 from .forms import CommentForm, CreatePostForm
 
+from django.contrib.auth.decorators import login_required
 
+@login_required()
 def profile_view(request, username):
 
 
@@ -39,10 +42,9 @@ def feed_view(request, *args):
         posts = full_posts_query(Post.objects)
 
     if data.get('filter') == 'popular':
-        posts = posts.order_by('-likes_count')
+        posts = posts.order_by('-likes')
     else:
         posts = posts.order_by('-created_at')
-
 
 
     context={
@@ -71,7 +73,7 @@ def post_view(request, pk):
 
         else:
 
-            message = f'Ошибка: {form.errors}'
+            message =form.errors
 
     notifications = Notification.objects.select_related('owner').filter(status=True, to_post=post.id).order_by('-date')
     
@@ -85,11 +87,12 @@ def post_view(request, pk):
 
     return render(request=request, template_name='posts/post.html', context=context)
 
-
+@login_required()
 def create_post_view(request):
 
     context = {
-        'title': 'Новая запись'
+        'title': 'Новая запись',
+        'message': ''
     }
 
     if request.method == 'POST':
@@ -117,10 +120,7 @@ def create_post_view(request):
 
         else:
 
-            message = f'Ошибка: {form.errors}'
-            if category is None:
-                message += 'Выберите категорию!'
-
+            context['message'] = f'Ошибка: {form.errors}'
 
     else:
 
@@ -128,3 +128,19 @@ def create_post_view(request):
 
 
     return render(request=request, template_name='posts/create-post.html', context=context)
+
+
+def delete_post_view(request, pk):
+
+    redirect_to= get_redirect_url(request=request)
+
+    post: Post = Post.objects.select_related('owner').get(pk=pk)
+    if request.user == post.owner:
+
+        ...
+        post.delete()
+
+
+    return redirect(to=redirect_to) 
+    # return JsonResponse({'status': 200})
+    

@@ -1,0 +1,45 @@
+{% extends "posts/base.html" %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'rpg/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'rpg/css/edit-profile.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class='center'>{{form.errors}}</div>
+    <div class="page-content center">
+        <form action="{% url 'users:edit-profile' %}" method='post' enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="profile-head page-block">
+                <div class="profile-photo cyrcle">
+                    <img id="profile-photo-large" class="cyrcle-inner" 
+                    src="{% if not user.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{user.image.url}}{% endif %}" 
+                    alt="profile-photo">
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-username">
+                        {{form.username}}
+                    </h2>
+                    <span class="profile-status">
+                        {{form.status}}
+                    </span>
+                    <p>
+                        {{form.image}}
+                    </p>
+                </div>
+                <div class="profile-settings">
+                    <button type='submit' class="profile-settings-button" >Подтвердить</button>
+                </div>
+            </div>
+            <div class='wrp'>
+                <a href='{% url "users:logout" %}' class="logout-btn">Выйти из аккаунта</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'rpg/js/preview-to-new-avatar.js' %}"></script>
+{% endblock js %}

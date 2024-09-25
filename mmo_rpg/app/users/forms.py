@@ -30,11 +30,13 @@ class UserRegistrationForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
     def clean(self):
+
         cleaned_data = super(UserRegistrationForm, self).clean()
         username = cleaned_data.get('username')
-        alphabet=re.search('[а-яА-Я]', username)
+        
         if bool(re.search('[а-яА-Я]', username)):
             self.add_error('username', 'Russian words are not allowed in username.')
+        
         return cleaned_data
 
     def save(self, commit=True):
@@ -56,3 +58,60 @@ class UserLoginForm(forms.Form):
         'class': "custom-placeholder",
         'placeholder': "Пароль"
     }))
+
+
+class EditProfileForm(forms.Form):
+
+    user=None
+
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'class':"custom-placeholder", 
+        'name':"username",
+        'placeholder':"Придумайте username",
+        }), required=True)
+    
+    status = forms.CharField(widget=forms.Textarea(attrs={
+        'class':"custom-placeholder", 
+        'name':"status",
+        'placeholder':"Ваш статус",
+        'rows':"3"
+    }), required=False)
+    
+    image = forms.ImageField(widget=forms.FileInput(attrs={
+        'name':'image', 
+        'id':"new-profile-pic", 
+        'class':"custom-placeholder"
+        }), required=False)
+    
+    
+    def clean_username(self):
+
+        username = self.cleaned_data.get('username')
+
+        user = User.objects.filter(username=username).first()
+
+        if user is not None and user != self.user:
+            
+            self.add_error('username', 'This username is busy')
+
+        elif bool(re.search('[а-яА-Я]', username)):
+        
+            self.add_error('username', 'Russian words are not allowed in username.')
+        
+        else:
+            
+            return username
+
+    def save(self) -> User:
+
+        if self.cleaned_data['image'] is None:
+
+            self.cleaned_data['image'] = self.user.image
+
+        self.user.username=self.cleaned_data['username']
+        self.user.status=self.cleaned_data['status']
+        self.user.image=self.cleaned_data['image']
+        self.user.save()
+
+        return self.user
+    

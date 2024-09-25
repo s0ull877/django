@@ -12,6 +12,7 @@
     <div class="center">
         <div class="page-block no-border">
             <div class="full-bkg">
+                {{message}}
                 <div class="post-item">
                     <form action="{% url 'posts:create' %}" enctype='multipart/form-data' method='POST'>
                         {% csrf_token %}

@@ -17,7 +17,8 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
-# TODO выход из акка, удалить акк, удалить пост, удалить коммент
+# TODO удалить коммент
+# TODO ajax поправить для незареганных пользователей
 
 if __name__ == '__main__':
     main()

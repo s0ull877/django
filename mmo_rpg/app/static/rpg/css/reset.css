@@ -71,3 +71,25 @@ button {
 a {
     text-decoration: none;
 }
+
+/* впадлу везде прописывать */
+.login-btn {
+    margin: 0 20px 0 auto;
+    
+    padding: 5px 10px;
+    border-radius: 14px;
+    border: 0.1px solid rgb(0, 255, 0);
+    background-color: rgb(16, 16, 16);
+
+    -webkit-text-stroke: 0.5px #000000;
+    font-family: "Rubik Bubbles", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: rgb(0, 255, 0);
+}
+
+.login-btn:hover {
+    color: yellow;
+    border: 0.1px solid rgba(255, 255, 0, 0.812);
+}
