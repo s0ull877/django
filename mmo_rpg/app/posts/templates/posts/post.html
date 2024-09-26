@@ -49,19 +49,31 @@
                             </li>
                         {% endif %}
                         {% for notification in notifications %}
-                            <li class="comment-item">
-                                <a href="{% url 'posts:profile' notification.owner.username %}">
-                                    <div class="cyrcle comment-owner-pic">
-                                        <img class="cyrcle-inner" src="{% if not notification.owner.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{notification.owner.image.url}}{% endif %}" alt="comments-owner-{{notification.id}}">
-                                    </div>
-                                    <div class="comment-owner-name">
-                                        <p class="post-owner">{{ notification.owner.username }}</p>
-                                        <p class="comment-word">Комментарий</p>
-                                    </div>
+                            <li class="comment-item" id='notification-{{notification.id}}'>
+                                <div style='display: flex;'>
+                                    <a href="{% url 'posts:profile' notification.owner.username %}">
+                                        <div class="cyrcle comment-owner-pic">
+                                            <img class="cyrcle-inner" src="{% if not notification.owner.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{notification.owner.image.url}}{% endif %}" alt="comments-owner-{{notification.id}}">
+                                        </div>
+                                        <div class="comment-owner-name">
+                                            <p class="post-owner">{{ notification.owner.username }}</p>
+                                            <p class="comment-word">Комментарий</p>
+                                        </div>
+                                    </a>
                                     <div class="comment-publish-time">
-                                        {{ notification.date | naturaltime }}
+                                        <p>
+                                            {{ notification.date | naturaltime }}
+                                        </p>
                                     </div>
-                                </a>
+                                    {% if user == notification.owner or user == post.owner %}
+                                        <button type='button' class='delete-notification-btn' 
+                                        notification_id="{{notification.id}}" post_owner="{{post.owner}}" 
+                                        notification_owner="{{notification.owner}}" change_url="{% url 'notifications:delete' %}">
+                                            {% csrf_token %}
+                                            <img src="{% static 'rpg/img/cross-mark-svgrepo-com.svg' %}" alt="">
+                                        </button>
+                                    {% endif %}
+                                </div>
                                 <div class="comment-content">
                                     {{notification.text}} 
                                 </div>
@@ -78,4 +90,5 @@
     <script src="{% static 'rpg/js/like.js' %}"></script>
     <script src="{% static 'rpg/js/pretty-post.js' %}"></script>
     <script src="{% static 'rpg/js/textarea-resize.js' %}"></script>
+    <script src="{% static 'rpg/js/del-comment.js' %}"></script>
 {% endblock js %}

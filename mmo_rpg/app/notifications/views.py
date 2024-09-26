@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.shortcuts import render
 from django.http.response import JsonResponse
 
@@ -28,14 +29,35 @@ def change_view(request):
 
 @login_required()
 def like_view(request, pk):
+        
+    if request.user.is_authenticated:
 
-    post = Post.objects.get(pk=pk)
+        post = Post.objects.get(pk=pk)
 
-    value = True if request.POST.get('value') == 'true' else False
+        value = True if request.POST.get('value') == 'true' else False
 
-    if value:
-        post.liked_users.add(request.user)
-    else:
-        post.liked_users.remove(request.user)
+        if value:
+            post.liked_users.add(request.user)
+        else:
+            post.liked_users.remove(request.user)
 
-    return JsonResponse({'status_code': 200})
+        return JsonResponse({'status_code': 200})
+    
+
+def delete_view(request):
+
+    data = request.POST.dict()
+
+    try:
+    
+        notf = Notification.objects.get(pk=int(data['notification_id']))
+
+        if request.user.username in (data['post_owner'], data['notf_owner']):
+
+            notf.delete()
+
+        return JsonResponse({'status_code': 200, 'pk': data['notification_id']})
+
+    
+    except Exception as ex:
+        return

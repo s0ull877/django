@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.notifications_view, name='notifications'),
     path('change/', views.change_view, name='change'),
     path('like/<int:pk>', views.like_view, name='like'),
+    path('delete/', views.delete_view, name='delete'),
 ]

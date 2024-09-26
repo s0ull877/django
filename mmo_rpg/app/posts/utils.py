@@ -3,7 +3,7 @@ import re
 from uuid import uuid4
 from django.conf import settings
 
-from django.db.models import Count, QuerySet
+from django.db.models import Count, QuerySet, Q
 from django.db.models.manager import Manager
 
 
@@ -38,7 +38,7 @@ def full_posts_query(manager: Manager, get_by:dict=None, **filters) -> QuerySet:
 
         post=manager.select_related('category', 'owner'). \
             prefetch_related('postimage_set').prefetch_related('liked_users'). \
-            annotate(comments_count=Count('notification__id', distinct=True)). \
+            annotate(comments_count=Count('notification__id', filter=Q(notification__status=True), distinct=True)). \
             annotate(likes=Count('liked_users__id', distinct=True)).get(**get_by)
         
         return post
@@ -47,14 +47,14 @@ def full_posts_query(manager: Manager, get_by:dict=None, **filters) -> QuerySet:
 
         posts=manager.select_related('category', 'owner'). \
             prefetch_related('postimage_set').prefetch_related('liked_users'). \
-            annotate(comments_count=Count('notification__id', distinct=True)). \
+            annotate(comments_count=Count('notification__id',filter=Q(notification__status=True), distinct=True)). \
             annotate(likes=Count('liked_users__id', distinct=True))
         
     else:
 
         posts=manager.select_related('category', 'owner'). \
             prefetch_related('postimage_set').prefetch_related('liked_users'). \
-            annotate(comments_count=Count('notification__id', distinct=True)). \
+            annotate(comments_count=Count('notification__id',filter=Q(notification__status=True), distinct=True)). \
             annotate(likes=Count('liked_users__id', distinct=True)).filter(**filters)       
     
     return posts
