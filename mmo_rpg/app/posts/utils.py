@@ -1,11 +1,13 @@
 import os
 import re
 from uuid import uuid4
-from django.conf import settings
 
+from django.conf import settings
 from django.db.models import Count, QuerySet, Q
 from django.db.models.manager import Manager
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 
+from users.models import User
 
 def custom_upload(instance, filename):
 
@@ -75,3 +77,13 @@ def get_redirect_url(request) -> str:
         uri += f'&{k}={v}'
 
     return settings.HOSTNAME + uri
+
+
+def q_search(query:str):
+
+    vector = SearchVector("username")
+    query = SearchQuery(query)
+    
+    users = User.objects.annotate(rank=SearchRank(vector, query)).filter(rank__gt=0).order_by('-rank')
+
+    return users

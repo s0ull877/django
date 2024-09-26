@@ -1,0 +1,45 @@
+{% extends "posts/base.html" %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'rpg/css/feed.css' %}">
+    <link rel="stylesheet" href="{% static 'rpg/css/posts.css' %}">
+{% endblock css %}
+
+{% block content %}
+        <div class="center">
+            <div class="page-block new-border">
+                <div class="feed-head">
+                    <h1 class="feed-title">Пользователи</h1>
+                    {% if query %}
+                        <h2 class="feed-title">
+                            '{{query}}'
+                        </h2>
+                    {% endif %}
+                </div>
+                <ul class="post-list">
+                {% if not users %}
+                    <div>Никого нет :(</div>
+                {% endif %}
+                {% for q_user in users %}
+                    <li class="post-item">
+                        <div class="post">
+                            <a href="{% url 'posts:profile' q_user.username %}">
+                                <div style="align-items: center;" class="post-head">
+                                    <div style='width: 100px;height: 100px;' class="post-owner-pic cyrcle">
+                                        <img class="cyrcle-inner" src="{% if not q_user.image %}{% static 'rpg/img/default-avatar.jpeg' %}{% else %}{{q_user.image.url}}{% endif %}" alt="post-profile-photo-{{q_user.id}}">
+                                    </div>
+                                    <p style="font-size: 75px;" class="post-owner">{{q_user.username}}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+{% endblock content %}
+
+{% block js %}
+{% endblock js %}

@@ -2,38 +2,46 @@ let like_buttons = document.querySelectorAll('.post-like');
 
 function LikeButtonClick() {
 
-  like_count_span=this.querySelector('span')
-  
-  var token = this.querySelector('input[name="csrfmiddlewaretoken"]').value
+    like_count_span=this.querySelector('span')
+    
+    var token = this.querySelector('input[name="csrfmiddlewaretoken"]').value
 
-  if (this.classList.contains('liked')) {
+    // убрать или поставить лайк
+    if (this.classList.contains('liked')) {
+        var value = false;
+    } else {
+        var value = true;
+    };
 
-    this.classList.remove('liked');
-    var value = false;
-    like_count_span.innerText--;
+    change_url=$(this).attr('change_url')
 
-  } else {
+    var button = this
+    
+    $.ajax({
 
-    this.classList.add('liked');
-    var value = true;
-    like_count_span.innerText++;
+        type: "POST",
+        url: change_url,
+        data: {
+            value: value,
+            csrfmiddlewaretoken: token,
+            },
 
-  };
+        success: function (data) {
 
-  change_url=$(this).attr('change_url')
-  
-  $.ajax({
-    type: "POST",
-    url: change_url,
-    data: {
-      value: value,
-      csrfmiddlewaretoken: token,
-      },
-  }
+          if (value) {
 
-);
+              button.classList.add('liked');
+              like_count_span.innerText++;
+
+          } else {
+
+              button.classList.remove('liked');
+              like_count_span.innerText--;
+            }
+        }
+      });
 }
 
 like_buttons.forEach((button) => {
-  button.addEventListener('click', LikeButtonClick);
+    button.addEventListener('click', LikeButtonClick);
 });

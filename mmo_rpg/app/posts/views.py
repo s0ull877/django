@@ -7,12 +7,11 @@ from notifications.models import Notification
 from posts.templatetags.categories_tag import categories_tag
 from users.models import User
 
-from .utils import full_posts_query, get_redirect_url
+from .utils import full_posts_query, get_redirect_url, q_search
 from .forms import CommentForm, CreatePostForm
 
 from django.contrib.auth.decorators import login_required
 
-@login_required()
 def profile_view(request, username):
 
 
@@ -142,5 +141,34 @@ def delete_post_view(request, pk):
 
 
     return redirect(to=redirect_to) 
-    # return JsonResponse({'status': 200})
-    
+
+
+def search_user_view(request):
+        
+
+    if request.method == 'POST':
+
+        query = request.POST['q']
+
+        users = q_search(query=query)
+
+        context={
+            'query': query,
+            'title': f'Пользователи \'{query}\'',
+            'users': users
+        }
+
+        return render(request=request, template_name='posts/users_list.html', context=context)
+
+    elif request.user.is_authenticated:
+
+        context={
+            'title': f'Пользователь',
+            'users': [request.user]
+        }
+
+        return render(request=request, template_name='posts/users_list.html', context=context)
+
+    else:
+
+        return Http404()

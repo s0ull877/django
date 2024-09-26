@@ -28,7 +28,11 @@
             {% endif %}
         </div>
         <div class="profile-body page-block">
-            <h2>Ваши посты</h2>
+            {% if user == owner %}
+                <h2>Ваши посты</h2>
+            {% else %}
+                <h2>Посты {{owner.username}}</h2>
+            {% endif %}
             <ul class="post-list">
                 {% for post in posts %}
                     {% include "posts/includes/post.html" %}

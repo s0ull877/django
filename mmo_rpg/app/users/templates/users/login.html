@@ -17,7 +17,7 @@
         <header class="center">
             <ul class="header-list">
                 <li class="header-item">
-                    <a href="./feed.html">
+                    <a href="{% url 'posts:feed' %}">
                         <svg height="40" width="40" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 504.903 504.903" xml:space="preserve">
                             <g transform="translate(1 1)">
                                 <g>
@@ -113,15 +113,15 @@
                 </li>
                 <li class="header-item">
                     <div class="search-box">
-                        <!-- пряумоуголник с сглаженными углами -->
-                        <label class="search-box-view">
-                            <!-- лупа -->
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="padding-bottom: 1px;">
-                                <path d="M14.5776 14.5419C15.5805 13.53 16.2 12.1373 16.2 10.6C16.2 7.50721 13.6928 5 10.6 5C7.50721 5 5 7.50721 5 10.6C5 13.6928 7.50721 16.2 10.6 16.2C12.1555 16.2 13.5628 15.5658 14.5776 14.5419ZM14.5776 14.5419L19 19" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <!-- поиск -->
-                            <input type="search" placeholder="Поиск" id="search-header">
-                        </label>
+                        <form action="{% url 'posts:search' %}" method='post'>
+                            {% csrf_token %}
+                            <label class="search-box-view" for='search-header'>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="padding-bottom: 1px;">
+                                    <path d="M14.5776 14.5419C15.5805 13.53 16.2 12.1373 16.2 10.6C16.2 7.50721 13.6928 5 10.6 5C7.50721 5 5 7.50721 5 10.6C5 13.6928 7.50721 16.2 10.6 16.2C12.1555 16.2 13.5628 15.5658 14.5776 14.5419ZM14.5776 14.5419L19 19" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <input type="search" placeholder="Поиск" name='q' id="search-header">
+                            </label>
+                        </form>
                     </div>
                 </li>
             </ul>

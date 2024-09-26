@@ -1,0 +1,24 @@
+[
+    {
+        "model": "notifications.notification",
+        "pk": 5,
+        "fields": {
+            "owner": 1,
+            "to_post": 1,
+            "date": "2024-09-26T09:48:08.308Z",
+            "text": "xzfkfxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "status": true
+        }
+    },
+    {
+        "model": "notifications.notification",
+        "pk": 9,
+        "fields": {
+            "owner": 1,
+            "to_post": 1,
+            "date": "2024-09-26T10:57:06.371Z",
+            "text": "sadasdasd",
+            "status": true
+        }
+    }
+]
