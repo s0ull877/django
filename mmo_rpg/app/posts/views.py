@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 
 from posts.models import Post, PostImage
 from notifications.models import Notification
+from posts.tasks import send_email
 from posts.templatetags.categories_tag import categories_tag
 from users.models import User
 
@@ -65,10 +66,16 @@ def post_view(request, pk):
 
         if form.is_valid():
 
-            Notification.objects.create(owner=request.user, to_post=post, text=form.cleaned_data['comment'])
+            notf = Notification.objects.create(owner=request.user, to_post=post, text=form.cleaned_data['comment'])
             message = f'Комментарий отправлен!'
+            
             if request.user != post.owner:
-                message += f'Дождитесь когда {post.owner.username} примет решение.' 
+                
+                message += f'Дождитесь когда {post.owner.username} примет решение.'
+
+                mail_message = f'Пользователь {request.user.username} оставил комментарий под вашим постом от {post.created_at}:\n\n{notf.text}'
+
+                send_email.delay(post.owner.id, mail_message) 
 
         else:
 

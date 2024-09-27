@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.urls import reverse
 
 from users.models import EmailVerification, User
 
@@ -128,13 +129,13 @@ def verify_email(request, email, code):
         user.is_verified_email = True
         user.save()
 
-        context = {'message': 'Почта верифицирована!'}
+        message='Почта верифицирована!'
         
     else:
 
-        context = {'message': 'Срок верификации истек!'}
+       message='Срок верификации истек!'
 
-    return redirect(to='users:login', context=context)
+    return render(request=request, template_name='send-email.html', context={'message': message})
 
 def about_view(request):
 
