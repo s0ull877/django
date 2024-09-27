@@ -12,6 +12,9 @@
 
 **/static/admin
 **/static/rest_framework
+**static/debug_toolbar
 
 .gitmodules
+
+**/celerybeat-schedule*
 

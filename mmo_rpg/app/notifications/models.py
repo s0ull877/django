@@ -60,7 +60,8 @@ class EmailNotification(models.Model):
         auto_now_add=True)
     # Если автоматически то раз в месяц удаляются такие сообщения
     manual=models.BooleanField(
-        verbose_name='Создано автоматически',)
+        verbose_name='Создано персоналом',
+        default=True)
     
 
     def send_email(self):
