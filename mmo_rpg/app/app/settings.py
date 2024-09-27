@@ -108,6 +108,24 @@ CACHES = {
     }
 }
 
+# CELERY
+CELERY_TIMEZONE = "Europe/Moscow"
+
+CELERY_BROKER_URL = os.getenv('CACHE_LOCATION')
+CELERY_RESULT_BACKEND = os.getenv('CACHE_LOCATION')
+
+# EMAIL
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_HOST =os.getenv('EMAIL_HOST')
+    EMAIL_PORT = os.getenv('EMAIL_PORT')
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+    EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', True)
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    SERVER_EMAIL = EMAIL_HOST_USER
+    EMAIL_ADMIN = EMAIL_HOST_USER
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -143,6 +161,7 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)

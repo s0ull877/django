@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 
-from users.models import User
+from users.models import EmailVerification, User
+
+from .tasks import send_email_verification
 
 from .forms import UserRegistrationForm, UserLoginForm, EditProfileForm
 
@@ -22,8 +24,12 @@ def register_user_view(request):
 
         if form.is_valid():
 
-            form.save()
+            user = form.save()
+
+            send_email_verification.delay(user.id)
+
             context = {'title': 'Проверьте почту', 'email': form.data['email']}
+
             return render(request=request, template_name='send-email.html', context=context)
 
         context = {
@@ -112,29 +118,23 @@ def logout_view(request):
     return redirect(to='users:login')
 
 
+def verify_email(request, email, code):
 
-# class EmailVerificationView(TemplateView):
-    
-#     title = 'Store - Подтверждение электронной почты'
-#     template_name = r'users/email_verification.html'
+    user =User.objects.get(email=email)
+    email_verification = EmailVerification.objects.filter(user=user, code=code)
 
+    if email_verification.exists() and not email_verification.first().is_expired():
 
-#     def get(self, request, *args, **kwargs):
+        user.is_verified_email = True
+        user.save()
 
-#         code = kwargs['code']
-#         user =User.objects.get(email=kwargs['email'])
-#         email_verification = EmailVerification.objects.filter(user=user, code=code)
+        context = {'message': 'Почта верифицирована!'}
+        
+    else:
 
-#         if email_verification.exists() and not email_verification.first().is_expired():
+        context = {'message': 'Срок верификации истек!'}
 
-#             user.is_verified_email = True
-#             user.save()
-#             return super(EmailVerificationView, self).get(request, *args, **kwargs)
-            
-#         else:
-
-#             return HttpResponseRedirect(reverse('index'))
-
+    return redirect(to='users:login', context=context)
 
 def about_view(request):
 

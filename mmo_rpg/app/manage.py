@@ -17,8 +17,7 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
-# TODO ajax поправить для незареганных пользователей
-# TODO кэширование категорий, celery
+# TODO celery
 # TODO auth2.0
 
 if __name__ == '__main__':
