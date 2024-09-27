@@ -136,9 +136,7 @@ def delete_post_view(request, pk):
     post: Post = Post.objects.select_related('owner').get(pk=pk)
     if request.user == post.owner:
 
-        ...
         post.delete()
-
 
     return redirect(to=redirect_to) 
 

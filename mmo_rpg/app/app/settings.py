@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from django.urls import reverse
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -99,6 +101,13 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        "BACKEND": os.getenv('CACHE_BACKEND'),
+        'LOCATION': os.getenv('CACHE_LOCATION'),
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -159,3 +168,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'users.User'
+
+LOGIN_URL='/login/'

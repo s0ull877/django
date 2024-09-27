@@ -64,7 +64,7 @@ def login_user_view(request):
 
             elif not user.is_verified_email:
 
-                context['message'] = 'Ваша почта не подтверждена!'
+                context['message'] = f'Ваша почта {user.email} не подтверждена!'
                 return render(request=request, template_name='users/login.html', context=context)
 
             else:

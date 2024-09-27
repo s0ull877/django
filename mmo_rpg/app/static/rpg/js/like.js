@@ -1,5 +1,3 @@
-let like_buttons = document.querySelectorAll('.post-like');
-
 function LikeButtonClick() {
 
     like_count_span=this.querySelector('span')
@@ -28,19 +26,25 @@ function LikeButtonClick() {
 
         success: function (data) {
 
-          if (value) {
+            if (value) {
 
-              button.classList.add('liked');
-              like_count_span.innerText++;
+                button.classList.add('liked');
+                like_count_span.innerText++;
 
-          } else {
+            } else {
 
-              button.classList.remove('liked');
-              like_count_span.innerText--;
-            }
+                button.classList.remove('liked');
+                like_count_span.innerText--;
+                }
+        },
+        error: function(data){
+            console.log(data.responseJSON.error);
         }
+
       });
 }
+
+let like_buttons = document.querySelectorAll('.post-like');
 
 like_buttons.forEach((button) => {
     button.addEventListener('click', LikeButtonClick);

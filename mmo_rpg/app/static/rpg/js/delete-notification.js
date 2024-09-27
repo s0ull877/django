@@ -17,20 +17,12 @@ notification_buttons_divs.forEach((notification_buttons_div) => {
 
 
 function deleteNotification() {
-    
-    // удаляем отклик после клика
+    // блок отклика
     var notification_item = this.closest('.notification-item');
+
+    // данные для запроса
     var token = this.querySelector('input[name="csrfmiddlewaretoken"]').value
-    notification_item.remove();
 
-    // если откликов не осталосб, говорю об этом
-    if  (!document.querySelector('.notification-item')) {
-        var no_notification = document.querySelector('.empty-notifications')
-        no_notification.style.display = 'block'
-    };
-
-    var notification_id = $(this).attr('notification_id')
-    var change_url = $(this).attr('change_url')
     // для дальнейшей обработки бек-ом
     if (this.classList.contains('approve-notification')) {
         var value = true
@@ -40,11 +32,26 @@ function deleteNotification() {
     
     $.ajax({
         type: "POST",
-        url: change_url,
+        url: $(this).attr('change_url'),
         data: {
-            notification_id: notification_id,
+            notification_id: $(this).attr('notification_id'),
             value: value,
             csrfmiddlewaretoken: token,
+        },
+        success: function (data) {
+
+            // удаляем отклик после ответа
+            console.log(notification_item)
+            notification_item.remove();
+
+            // если откликов не осталосб, говорю об этом
+            if  (!document.querySelector('.notification-item')) {
+                var no_notification = document.querySelector('.empty-notifications')
+                no_notification.style.display = 'block'
+            };
+        },
+        error: function(data){
+            console.log(data.responseJSON.error);
         }
     })
 

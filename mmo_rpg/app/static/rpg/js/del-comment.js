@@ -30,6 +30,9 @@ function deleteComment() {
 
             notification_block.remove(notification_block);
 
+        },
+        error: function(data){
+            console.log(data.responseJSON.error);
         }
     })
 

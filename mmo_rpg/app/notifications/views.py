@@ -1,4 +1,5 @@
 from django.db.models import F
+from django.http import Http404
 from django.shortcuts import render
 from django.http.response import JsonResponse
 
@@ -6,6 +7,7 @@ from .models import Notification
 from posts.models import Post
 
 from django.contrib.auth.decorators import login_required
+
 
 @login_required()
 def notifications_view(request):
@@ -18,37 +20,65 @@ def notifications_view(request):
 
     return render(request=request, template_name='notifications/notifications.html', context=context)
 
-@login_required()
+
 def change_view(request):
 
-    notification = Notification.objects.get(pk=request.POST.get('notification_id'))
-    notification.status = True if request.POST.get('value') == 'true' else False
-    notification.save()
+    try:
 
-    return JsonResponse({'status_code': 200})
+        notification = Notification.objects.select_related('to_post').get(pk=request.POST['notification_id'])
 
-@login_required()
-def like_view(request, pk):
+        if notification.to_post.owner == request.user:
+
+            notification.status = True if request.POST['value'] == 'true' else False
+            notification.save()
+
+            return JsonResponse({'success': True,}, status=200)
         
-    if request.user.is_authenticated:
+        raise Http404('You cant approve/eject this comment')
 
-        post = Post.objects.get(pk=pk)
+    except KeyError as ex:
+        return JsonResponse({'success': False, 'error': 'Required body argument: {}'.format(ex.__str__())}, status=400)    
 
-        value = True if request.POST.get('value') == 'true' else False
+    except Http404 as ex:
+        return JsonResponse({'success': False, 'error': ex.__str__()}, status=400)       
 
-        if value:
-            post.liked_users.add(request.user)
-        else:
-            post.liked_users.remove(request.user)
+    except Exception as ex:
+        return JsonResponse({'success': False, 'error': ex.__str__()}, status=500)
 
-        return JsonResponse({'status_code': 200})
+
+def like_view(request, pk):
+
+    try:
+        
+        if request.user.is_authenticated:
+
+            post = Post.objects.get(pk=pk)
+            value = True if request.POST['value'] == 'true' else False
+
+            if value:
+                post.liked_users.add(request.user)
+            else:
+                post.liked_users.remove(request.user)
+
+            return JsonResponse({'success': True,}, status=200)
+        
+        raise Http404('You cant like this posts')
+
+    except KeyError as ex:
+        return JsonResponse({'success': False, 'error': 'Required body argument: {}'.format(ex.__str__())}, status=400)    
+
+    except Http404 as ex:
+        return JsonResponse({'success': False, 'error': ex.__str__()}, status=400)       
+
+    except Exception as ex:
+        return JsonResponse({'success': False, 'error': ex.__str__()}, status=500)
     
 
 def delete_view(request):
 
-    data = request.POST.dict()
-
     try:
+        
+        data = request.POST.dict()
     
         notf = Notification.objects.get(pk=int(data['notification_id']))
 
@@ -56,8 +86,15 @@ def delete_view(request):
 
             notf.delete()
 
-        return JsonResponse({'status_code': 200, 'pk': data['notification_id']})
+            return JsonResponse({'status_code': 204, 'pk': data['notification_id']})
+        
+        raise Http404('You cant delete this comment.')
 
+    except KeyError as ex:
+        return JsonResponse({'success': False, 'error': 'Required body argument: {}'.format(ex.__str__())}, status=400)  
     
+    except Http404 as ex:
+        return JsonResponse({'success': False, 'error': ex.__str__()}, status=400)       
+
     except Exception as ex:
-        return
+        return JsonResponse({'success': False, 'error': ex.__str__()}, status=500)

@@ -1,1 +1,42 @@
-[{"model": "users.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$870000$GXUcaRztGOVGWuCVtJSrzt$PlnxEmuDs0/koC3GwSQVzGmelVZn0AlzpCiNMl+fnpU=", "last_login": "2024-09-25T16:52:16.196Z", "is_superuser": true, "first_name": "", "is_staff": true, "is_active": true, "date_joined": "2024-09-25T16:49:06.111Z", "username": "root", "image": "users_images/1_avatar.jpg", "status": "", "email": "root@r.ru", "is_verified_email": false, "groups": [], "user_permissions": []}}, {"model": "users.user", "pk": 3, "fields": {"password": "pbkdf2_sha256$870000$tEY7csmK0wtGDe744rPr6s$VZ0oZzzJyiNObRUJcv8ustRKPASavvYuAs5/iMN5dtQ=", "last_login": "2024-09-26T09:41:40.827Z", "is_superuser": false, "first_name": "", "is_staff": false, "is_active": true, "date_joined": "2024-09-26T09:41:00Z", "username": "312107", "image": "", "status": "", "email": "galiullinradmir17@gmail.com", "is_verified_email": true, "groups": [], "user_permissions": []}}]
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$GXUcaRztGOVGWuCVtJSrzt$PlnxEmuDs0/koC3GwSQVzGmelVZn0AlzpCiNMl+fnpU=",
+            "last_login": "2024-09-25T16:52:16.196Z",
+            "is_superuser": true,
+            "first_name": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-09-25T16:49:06.111Z",
+            "username": "root",
+            "image": "users_images/1_avatar.jpg",
+            "status": "",
+            "email": "root@r.ru",
+            "is_verified_email": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$tEY7csmK0wtGDe744rPr6s$VZ0oZzzJyiNObRUJcv8ustRKPASavvYuAs5/iMN5dtQ=",
+            "last_login": "2024-09-26T09:41:40.827Z",
+            "is_superuser": false,
+            "first_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-09-26T09:41:00Z",
+            "username": "312107",
+            "image": "",
+            "status": "",
+            "email": "galiullinradmir17@gmail.com",
+            "is_verified_email": true,
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]
