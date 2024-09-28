@@ -8,13 +8,14 @@ from django.urls import reverse
 from django.utils.timezone import now
 from .utils import user_avatar_upload
 
+
 class User(AbstractUser):
 
     last_name = None
     username = models.CharField(
         max_length=20, unique=True)
     image = models.ImageField(
-        upload_to=user_avatar_upload, 
+        upload_to=user_avatar_upload, #кастомный upload
         null=True, blank=True)
     status = models.TextField(
         verbose_name='Статус пользователя', 
@@ -26,6 +27,7 @@ class User(AbstractUser):
     is_verified_email = models.BooleanField(
         default=False)
 
+    # для менеджмента, команды для создания root`a в докер контейнере
     def create_superser(self, username:str, email:str, password:str ):
         self.objects.save(
             username=username, email=email, password=password, 
@@ -47,6 +49,7 @@ class EmailVerification(models.Model):
 
     def send_verification_email(self):
 
+        # ссылка для пользователя для верификации
         link = reverse('users:verify', kwargs={'email': self.user.email, 'code': self.code})
         verify_link = f'{settings.HOSTNAME}{link}'
         subject = f'Подтверждение учетной записи для {self.user.username}'
@@ -64,6 +67,7 @@ class EmailVerification(models.Model):
             )
 
     
+    # не просрочена ли ссылка
     def is_expired(self):
         
         return now() >= self.expiration

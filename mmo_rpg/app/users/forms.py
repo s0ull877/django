@@ -29,24 +29,18 @@ class UserRegistrationForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
+
     def clean(self):
 
         cleaned_data = super(UserRegistrationForm, self).clean()
         username = cleaned_data.get('username')
         
+        # не хотел русские символы в username
         if bool(re.search('[а-яА-Я]', username)):
             self.add_error('username', 'Russian words are not allowed in username.')
         
         return cleaned_data
 
-    def save(self, commit=True):
-        
-        user = super(UserRegistrationForm, self).save(commit=True)
-
-        # send_email_verification.delay(user.id)
-
-        return user
-    
 
 class UserLoginForm(forms.Form):
 
@@ -58,6 +52,7 @@ class UserLoginForm(forms.Form):
         'class': "custom-placeholder",
         'placeholder': "Пароль"
     }))
+
 
 
 class EditProfileForm(forms.Form):
@@ -84,12 +79,14 @@ class EditProfileForm(forms.Form):
         }), required=False)
     
     
+
     def clean_username(self):
 
         username = self.cleaned_data.get('username')
 
         user = User.objects.filter(username=username).first()
 
+        # если желаемый юзернейм занят другим юзером
         if user is not None and user != self.user:
             
             self.add_error('username', 'This username is busy')
@@ -102,6 +99,7 @@ class EditProfileForm(forms.Form):
             
             return username
 
+    # апдейт полей пользователя
     def save(self) -> User:
 
         if self.cleaned_data['image'] is None:

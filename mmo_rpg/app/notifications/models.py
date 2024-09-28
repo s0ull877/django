@@ -30,12 +30,15 @@ class Notification(models.Model):
     def __str__(self) -> str:
         return f'Комментарий {self.owner.username} от {self.date} к {self.to_post}'
     
+
+    # если комментирует сам владелец поста, то он автоматически одобрен
     def save(self, *args, **kwargs) -> None:
 
         if self.owner == self.to_post.owner:
 
             self.status=True
 
+        # удаляем нахй
         if self.status is False:
             
             self.delete()
@@ -58,7 +61,6 @@ class EmailNotification(models.Model):
     created_at=models.DateTimeField(
         verbose_name='Дата создания',
         auto_now_add=True)
-    # Если автоматически то раз в месяц удаляются такие сообщения
     manual=models.BooleanField(
         verbose_name='Создано персоналом',
         default=True)
@@ -66,6 +68,7 @@ class EmailNotification(models.Model):
 
     def send_email(self):
 
+        # если получатель не выбран, то рассылка всем юзерам
         if self.to is None:
 
             recipient_list = User.objects.values_list('email', flat=True)
@@ -94,6 +97,7 @@ class EmailNotification(models.Model):
 
         super().save(*args, force_insert, force_update, using, update_fields)
         
+        # рассылка после создания
         self.send_email()
         
 
@@ -101,7 +105,7 @@ class EmailNotification(models.Model):
         
         name = self.to if self.to is not None else 'Всем пользователям'
 
-        return f'Рассылка от {self.created_at} | {self.to}'
+        return f'Рассылка от {self.created_at} | {name}'
         
 
 

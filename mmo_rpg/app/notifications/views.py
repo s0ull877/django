@@ -27,6 +27,7 @@ def change_view(request):
 
         notification = Notification.objects.select_related('to_post').get(pk=request.POST['notification_id'])
 
+        # только автор поста может выбрать статус
         if notification.to_post.owner == request.user:
 
             notification.status = True if request.POST['value'] == 'true' else False
@@ -53,7 +54,7 @@ def like_view(request, pk):
         if request.user.is_authenticated:
 
             post = Post.objects.get(pk=pk)
-            value = True if request.POST['value'] == 'true' else False
+            value = True if request.POST['value'] == 'true' else False #статус лайка True - поставить, False - убрать
 
             if value:
                 post.liked_users.add(request.user)
@@ -82,6 +83,7 @@ def delete_view(request):
     
         notf = Notification.objects.get(pk=int(data['notification_id']))
 
+        # коммент может удалить либо владелец комментированного поста, либо автор комментария
         if request.user.username in (data['post_owner'], data['notf_owner']):
 
             notf.delete()

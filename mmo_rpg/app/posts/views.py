@@ -1,5 +1,5 @@
 from django.db.models import Count
-from django.http import Http404, JsonResponse
+from django.http import Http404, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect, render
 
 from posts.models import Post, PostImage
@@ -18,6 +18,7 @@ def profile_view(request, username):
 
     user = User.objects.get(username=username)  if request.user.username != username else request.user
 
+    # DRY?
     posts = full_posts_query(user.post_set).order_by('-created_at')
     
     context={
@@ -60,6 +61,7 @@ def post_view(request, pk):
     post = full_posts_query(Post.objects, get_by={'pk': pk})
     message = None
 
+    # человек оставляет комментарий под постом
     if request.method == 'POST':
 
         form=CommentForm(request.POST)
@@ -70,9 +72,11 @@ def post_view(request, pk):
             message = f'Комментарий отправлен!'
             
             if request.user != post.owner:
-                
+                # пользователь должен получить одобрение, для публикации комментария
+
                 message += f'Дождитесь когда {post.owner.username} примет решение.'
 
+                # рассылка ему на почту
                 mail_message = f'Пользователь {request.user.username} оставил комментарий под вашим постом от {post.created_at}:\n\n{notf.text}'
 
                 send_email.delay(post.owner.id, mail_message) 
@@ -104,6 +108,7 @@ def create_post_view(request):
     if request.method == 'POST':
 
         category = categories_tag().filter(id=int(request.POST.get('category'))).first()
+        
         form=CreatePostForm(request.POST, request.FILES)
 
         if form.is_valid() and category:
@@ -114,6 +119,7 @@ def create_post_view(request):
                 category=category
             )
 
+            # изображения прикрепляем к посту
             # ! Я ПОКА ХЗ КАК ИНАЧЕ(
             for file in ['image1', 'image2', 'image3']:
 
@@ -148,6 +154,7 @@ def delete_post_view(request, pk):
     return redirect(to=redirect_to) 
 
 
+# поиск юзера
 def search_user_view(request):
         
 
@@ -165,6 +172,7 @@ def search_user_view(request):
 
         return render(request=request, template_name='posts/users_list.html', context=context)
 
+    # просто так
     elif request.user.is_authenticated:
 
         context={

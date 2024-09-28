@@ -1,0 +1,13 @@
+SECRET_KEY=
+DEBUG=TRUE
+
+DB_ENGINE=django.db.backends.postgresql_psycopg2
+DB_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+DB_HOST=127.0.0.1
+DB_PORT=5432
+
+CACHE_BACKEND=django.core.cache.backends.redis.RedisCache
+CACHE_LOCATION=redis://127.0.0.1:6379/1
+

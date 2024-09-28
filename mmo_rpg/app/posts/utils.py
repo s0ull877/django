@@ -17,6 +17,7 @@ def custom_upload(instance, filename):
 
     try:
     
+        # стараюсь фотки постов юзера привязывать к дирректории с его id
         dir_path = settings.MEDIA_ROOT / 'posts_images' / user.id
         os.mkdir(dir_path)
     
@@ -25,23 +26,23 @@ def custom_upload(instance, filename):
 
     finally:
     
-        post=instance.to_post
-        user=post.owner
+        user=instance.to_post.user
         filename = uuid4()
     
         return f'posts_images/{user.id}/{filename}.jpg' 
     
 
 
-# comments_count считает даже неактивные коменты
 def full_posts_query(manager: Manager, get_by:dict=None, **filters) -> QuerySet:
+# сокращаю количество запросов к базе данных через select_related, prefetch и пр.
 
+    # если нужен 1 эелемент, например для страницы с одним постом
     if get_by:
 
         post=manager.select_related('category', 'owner'). \
             prefetch_related('postimage_set').prefetch_related('liked_users'). \
             annotate(comments_count=Count('notification__id', filter=Q(notification__status=True), distinct=True)). \
-            annotate(likes=Count('liked_users__id', distinct=True)).get(**get_by)
+            annotate(likes=Count('liked_users__id', distinct=True)).get(**get_by)          #distint - без повторов
         
         return post
 

@@ -6,7 +6,7 @@ from django.utils.timezone import now
 
 from .models import EmailVerification, User
 
-
+# асинхронная отправка верификационного письма
 @shared_task
 def send_email_verification(user_id):
 

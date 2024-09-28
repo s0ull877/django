@@ -64,11 +64,13 @@ def login_user_view(request):
                 password=form.cleaned_data['password'],
             )
 
+            # нет такого юзера
             if user is None:
                 
                 context['message'] = 'Введены неверные данные!'
                 return render(request=request, template_name='users/login.html', context=context)
 
+            # не верефицирован
             elif not user.is_verified_email:
 
                 context['message'] = f'Ваша почта {user.email} не подтверждена!'
@@ -83,10 +85,13 @@ def login_user_view(request):
 
             return render(request=request, template_name='users/login.html', context=context)
 
+
 @login_required()
 def profile_edit_view(request):
 
+    # initial, чтобы форма была красивая
     form=EditProfileForm(initial={'username':request.user.username,'status':request.user.status})
+    # присваивание юзера, для использования его в clean_username и save
     form.user = request.user
 
     context={
@@ -136,6 +141,7 @@ def verify_email(request, email, code):
        message='Срок верификации истек!'
 
     return render(request=request, template_name='send-email.html', context={'message': message})
+
 
 def about_view(request):
 
