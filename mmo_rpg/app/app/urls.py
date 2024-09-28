@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('users.urls', namespace='users')),
     path('', include('posts.urls', namespace='posts')),
     path('notifications/', include('notifications.urls', namespace='notifications')),
+    path('accounts/', include('allauth.urls')),
 ] + debug_toolbar_urls()
 
 if settings.DEBUG:
