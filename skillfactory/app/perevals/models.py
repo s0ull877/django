@@ -62,7 +62,7 @@ class Pereval(models.Model):
     title=models.CharField(
         verbose_name='Название'
     )
-    other_title=models.CharField(
+    other_titles=models.CharField(
         verbose_name='Доп. название'
     )
     connect=models.CharField()
