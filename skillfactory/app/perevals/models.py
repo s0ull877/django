@@ -44,6 +44,13 @@ class PerevalLevel(models.Model):
 
 class Pereval(models.Model):
 
+    STATUSES = (
+        (0, 'new'),
+        (1, 'pending'),
+        (2, 'accepted ')
+        (4, 'rejected')
+    )
+
     created_at=models.DateTimeField(
         verbose_name='Дата создания',
         name='date_added',
@@ -73,6 +80,12 @@ class Pereval(models.Model):
     coordinates=models.OneToOneField(
         verbose_name='Координаты перевала',
         to=Coordinates, on_delete=models.PROTECT)
+    
+    status = models.SmallIntegerField(
+        verbose_name='Статус модерации',
+        choices=,
+        default=0
+    )
 
     # изображения досавать prefetchem
 
