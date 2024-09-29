@@ -11,6 +11,35 @@ class Coordinates(models.Model):
 
     def __str__(self) -> str:
         return f'{self.latitude} {self.longitude} {self.height}'
+    
+
+class PerevalLevel(models.Model):
+
+    CHOICES=(
+        ('1A', '1А'),
+        ('1B', '1Б'),
+        ('2A', '2А'),
+        ('2B', '2Б'),
+        ('3A', '3А'),
+        ('3B', '3Б'),
+    )
+
+    winter=models.CharField(
+        verbose_name='Зимой',
+        choices=CHOICES,
+        blank=True, null=True)
+    summer=models.CharField(
+        verbose_name='Летом',
+        choices=CHOICES,
+        blank=True, null=True)
+    autumn=models.CharField(
+        verbose_name='Осенью',
+        choices=CHOICES,
+        blank=True, null=True)
+    spring=models.CharField(
+        verbose_name='Весной',
+        choices=CHOICES,
+        blank=True, null=True)
 
 
 class Pereval(models.Model):
@@ -34,26 +63,18 @@ class Pereval(models.Model):
         verbose_name='Дата добавления пользователем'
     )
     user = models.ForeignKey(
-        to=User,
+        to=User, on_delete=models.CASCADE,
         verbose_name='Добавлено пользователем'
     )
-    winter_level=models.CharField(
-        verbose_name="Тяжесть пути зимой", 
-        max_length=2, 
-        blank=True, null=True)
-    summer_level=models.CharField(
-        verbose_name="Тяжесть пути летом", 
-        max_length=2,
-        blank=True, null=True)
-    autumn_level=models.CharField(
-        verbose_name="Тяжесть пути осенью", 
-        max_length=2,
-        blank=True, null=True)
-    spring_level=models.CharField(
-        verbose_name="Тяжесть пути весной", 
-        max_length=2,
-        blank=True, null=True)
-    
+    level=models.OneToOneField(
+        verbose_name='Уровень сложности',
+        to=PerevalLevel, on_delete=models.PROTECT
+    )
+    coordinates=models.OneToOneField(
+        verbose_name='Координаты перевала',
+        to=Coordinates, on_delete=models.PROTECT)
+
+    # изображения досавать prefetchem
 
     def __str__(self) -> str:
         return f'{self.beautyTitle} {self.title} | {self.user}'
@@ -65,8 +86,8 @@ class Pereval(models.Model):
 
 class PerevalImage(models):
 
-    to_pereval=models.ManyToManyField(
-        to=Pereval,
+    to_pereval=models.ForeignKey(
+        to=Pereval, on_delete=models.CASCADE,
         verbose_name='Фото к перевалу')
     title=models.CharField(
         verbose_name='Описание к фотографии')
