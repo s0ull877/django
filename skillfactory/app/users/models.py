@@ -9,13 +9,13 @@ class User(models.Model):
         verbose_name='Фамилия пользователя')
     name = models.CharField(
         verbose_name='Имя пользователя')
-    oct = models.CharField(
+    otc = models.CharField(
         verbose_name='Отчество пользователя')
     phone=models.CharField(
         verbose_name='Номер телефона', 
         max_length=15)
 
 
-    def full_name(self):
+    def __str__(self):
 
         return f'{self.name} {self.fam} {self.otc}'

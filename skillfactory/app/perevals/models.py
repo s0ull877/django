@@ -71,7 +71,7 @@ class Pereval(models.Model):
     )
     user = models.ForeignKey(
         to=User, on_delete=models.CASCADE,
-        verbose_name='Добавлено пользователем'
+        verbose_name='Добавлено пользователем',
     )
     level=models.OneToOneField(
         verbose_name='Уровень сложности',
@@ -104,4 +104,5 @@ class PerevalImage(models.Model):
     title=models.CharField(
         verbose_name='Описание к фотографии')
     image = models.ImageField(
+        upload_to='',
         verbose_name='Изображение')

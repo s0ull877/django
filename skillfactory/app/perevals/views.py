@@ -1,17 +1,21 @@
+import json
+
 from django.db import IntegrityError, transaction
 from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from users.models import User 
 from .models import Pereval, PerevalImage, PerevalLevel, Coordinates
 from .utils import check_fields
 
+@csrf_exempt
 def submitData(request):
 
     if request.method != 'POST':
 
         return JsonResponse({'status':400,  'message':f'Method {request.method} not allowed!', 'id': None})
     
-    data = request.POST.dict()
+    data =json.loads(request.body)
 
     try:
         check_fields(data)
@@ -19,9 +23,9 @@ def submitData(request):
         return JsonResponse({'status':400, 'message': ex.__str__(), 'id': None})
     
     try:
-        with transaction.atomic:
+        with transaction.atomic():
 
-            user=User.objects.get_or_create(**data['user'])
+            user=User.objects.get_or_create(**data['user'])[0]
             coords=Coordinates.objects.create(
                 latitude=float(data['coords']['latitude']),
                 longitude=float(data['coords']['longitude']),
@@ -45,8 +49,8 @@ def submitData(request):
 
                 PerevalImage.objects.create(
                     to_pereval=pereval,
-                    titlr=image['title'],
-                    data=...)
+                    title=image['title'],
+                    image=image['data'])
 
 
     except ValueError as ex:
