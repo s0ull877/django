@@ -77,10 +77,9 @@ class Pereval(models.Model):
         verbose_name='Уровень сложности',
         to=PerevalLevel, on_delete=models.PROTECT
     )
-    coordinates=models.OneToOneField(
+    coords=models.OneToOneField(
         verbose_name='Координаты перевала',
         to=Coordinates, on_delete=models.PROTECT)
-    
     status = models.CharField(
         verbose_name='Статус модерации',
         choices=STATUSES,
@@ -97,7 +96,7 @@ class Pereval(models.Model):
         db_table = 'pereval_added'
 
 
-class PerevalImage(models):
+class PerevalImage(models.Model):
 
     to_pereval=models.ForeignKey(
         to=Pereval, on_delete=models.CASCADE,
