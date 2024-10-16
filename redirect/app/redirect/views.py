@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect
+from .models import RedirectModel
 
-# Create your views here.
+def redirect_view(request, path):
+
+    obj = get_object_or_404(RedirectModel, path=path)
+
+    return redirect(obj.redirect_to)

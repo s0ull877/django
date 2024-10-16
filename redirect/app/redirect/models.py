@@ -1,10 +1,11 @@
 from django.db import models
 
-class RecirectModel(models.Model):
+class RedirectModel(models.Model):
 
     path = models.CharField(
         verbose_name='Путь редиректа',
-        unique=True
+        unique=True,
+        max_length=10
     )
     redirect_to = models.URLField(
         verbose_name='Редирект на'
