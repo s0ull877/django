@@ -21,6 +21,5 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('redirect.urls')),
-    path('api-auth/', include('rest_framework.urls')),
-    path('api-v1/', include('redirect_api.urls')),
+    path('api/v1/', include('redirect_api.urls')),
 ]
