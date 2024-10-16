@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class RedirectModel(models.Model):
 
@@ -14,3 +15,8 @@ class RedirectModel(models.Model):
     def __str__(self):
         
         return f'{self.id} | {self.path}'
+
+
+    def get_redirect_uri(self):
+
+        return f'{settings.SITE_URL}/{self.path}'
