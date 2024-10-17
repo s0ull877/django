@@ -20,7 +20,7 @@ class RedirectCreateView(APIView):
 
         if serializer.is_valid():
 
-            redirect_obj = serializer.save(redirect_to=request.data.get('redirect_to'))
+            redirect_obj = serializer.save(redirect_to=request.data.get('redirect_to'), path=request.data.get('path'))
 
             return response.Response(data={'redirect_url': redirect_obj.get_redirect_uri()}, status=status.HTTP_201_CREATED, content_type='application/json')
 
