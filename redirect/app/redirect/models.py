@@ -11,6 +11,10 @@ class RedirectModel(models.Model):
     redirect_to = models.URLField(
         verbose_name='Редирект на'
     )
+    redirect_count = models.PositiveIntegerField(
+        verbose_name='Число редиректов',
+        default=0
+        )
 
     def __str__(self):
         
