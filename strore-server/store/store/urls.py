@@ -30,6 +30,7 @@ urlpatterns = [
     path('orders/', include('orders.urls', namespace='orders')),
     path('accounts/', include('allauth.urls')),
     path('webhook/yookassa/', yookassa_webhook_view, name='yookassa_webhook'),
+    path('api/', include('api.urls')),
 ]
 
 if settings.DEBUG:
