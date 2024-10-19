@@ -5,10 +5,11 @@
 
 ## Оглавление:
 - [Технологии](#технологии)
-- [Установка и запуск](#starting)
-- [Описание работы](#description)
+- [Установка и запуск](#установка-и-запуск)
+- [Описание работы](#описание-работы)
+- [Удаление](#удаление)
 
-## <a id="технологии">Технологии</a>
+## Технологии
 <details>
   <summary>Подробнее</summary>
     <p><strong>Языки программирования:</strong> python-10</p>
@@ -18,14 +19,14 @@
     <p><strong>CI/CD:</strong> Docker Hub, Docker Compose, Gunicorn, Nginx</p>  
 </details>
 
-## <a id="starting">Установка и запуск</a>
+## Установка и запуск
 
 <details>
   <summary>Предварительные условия</summary>
   <p>Предполагается, что пользователь:</p>
   
   - Создал аккаунт [DockerHub](https://hub.docker.com/).
-  - Установил [Docker](https://docs.docker.com/engine/install/) и [Dcoker Compose](https://docs.docker.com/compose/install/) на локальной машине или удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
+  - Установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
     
   `docker --version && docker-compose --version`
   
@@ -76,5 +77,43 @@
     - username = 'root', password = 'root'
       
     - собственными данными, если внесете в .env переменные `ADMIN_USERNAME`, `ADMIN_EMAIL`, `ADMIN_USERNAME`
+      
+Задачи представлены по адресу (в зависимости от способа запуска):
 
-Задачи представлены по адресу `http:container_ip/tasks/list`
+  - http://127.0.0.1:8000/tasks/list/`
+  - http://localhost/tasks/list/
+  - `http://<IP-адрес удаленного сервера>/tasks/list/`
+   
+Вход в админ-зону осуществляется по адресу (в зависимости от способа запуска):
+
+  - http://127.0.0.1:8000/admin/
+  - http://localhost/admin/
+  - `http://<IP-адрес удаленного сервера>/admin/`
+
+Запросы к api осуществляются через endpoint`ы (в зависимости от способа запуска):
+
+  - http://127.0.0.1:8000/api/list-tasks/ | http://127.0.0.1:8000/api/task/
+  - http://localhost/api/list-tasks/ | http://localhost/api/task/
+  - `http://<IP-адрес удаленного сервера>/api/list-tasks/` | http://<IP-адрес удаленного сервера>/api/task/
+
+GUI flower представлен по адресу (в зависимости от способа запуска):
+
+  - http://127.0.0.1:555/`
+  - http://localhost:555/
+  - `http://<IP-адрес удаленного сервера>:5555/`
+
+## Описание работы
+
+На странице http://<hostname>/task/list/ представлена таблица Task обьектов, имеющая поля ID, NAME, DESCRIPTION, STATUS. На данной странице реализован поиск по NAME и DESCRIPTION, используя elasticsearch и пагинация для уменьшения количества обьектов на странице. После создании обьекта Task с помощью админки сервиса или же специального запроса к апи, выполняется shared_task, который имитирует работу задачи (слип 10 секунд) и обновляет статусы задачи. Просмотреть информацию о shared_task можно в веб интерфейсе flower на 5555 порту.
+
+P.S. Диапазон между написанием кода и README очень велик, поэтому описание такое скудное.
+
+## Удаление
+Для удаления проекта выполните следующие действия:
+
+  `cd .. && rm -fr django && deactivate`
+
+[Оглавление](#оглавление)
+
+## <a id="#автор">Автор</a>
+[Radmir Galiullin](https://github.com/s0ull877)
