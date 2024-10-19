@@ -1,0 +1,16 @@
+DEBUG=True
+SECRET_KEY=
+
+DOMAIN_NAME=
+
+DB_ENGINE=django.db.backends.postgresql_psycopg2
+DB_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+DB_HOST=db
+DB_PORT=5432
+
+ADMIN_USERNAME=root 
+ADMIN_EMAIL=root@mail.com 
+ADMIN_PASSWORD=root
+
